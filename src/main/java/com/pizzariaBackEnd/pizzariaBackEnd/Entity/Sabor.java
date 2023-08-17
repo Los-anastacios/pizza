@@ -12,15 +12,17 @@ import java.util.List;
 @Table(name = "sabor", schema = "public")
 public class Sabor{
 
-    @Id
+
     @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
     @Getter@Setter
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
+    @Getter@Setter
     @ManyToMany(mappedBy = "sabor")
     private List<Item> item = new ArrayList<>();
 
@@ -28,7 +30,9 @@ public class Sabor{
 
     }
 
-    public Sabor(String nome){
+    public Sabor(Long id,String nome, List<Item> item){
+        this.id = id;
         this.nome = nome;
+        this.item = item;
     }
 }

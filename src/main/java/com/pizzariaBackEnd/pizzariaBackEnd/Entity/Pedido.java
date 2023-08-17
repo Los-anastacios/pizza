@@ -9,10 +9,11 @@ import org.springframework.data.annotation.Id;
 @Table(name = "pedido", schema = "public")
 public class Pedido{
 
-    @Id
+
     @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
+    @Id
     private Long id;
 
     @Getter@Setter

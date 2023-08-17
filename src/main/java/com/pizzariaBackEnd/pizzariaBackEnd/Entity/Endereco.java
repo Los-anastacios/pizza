@@ -3,16 +3,17 @@ package com.pizzariaBackEnd.pizzariaBackEnd.Entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
+
 
 @Entity
 @Table(name = "endereco", schema = "public")
 public class Endereco{
 
-    @Id
+
     @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
+    @Id
     private Long id;
 
     @Getter@Setter

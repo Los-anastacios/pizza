@@ -12,10 +12,11 @@ import java.util.List;
 @Table(name = "item", schema = "public")
 public class Item{
 
-    @Id
+
     @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
+    @Id
     private Long id;
 
     @Getter@Setter

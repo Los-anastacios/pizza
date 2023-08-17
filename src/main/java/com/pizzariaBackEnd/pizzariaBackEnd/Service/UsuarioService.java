@@ -1,7 +1,6 @@
 package com.pizzariaBackEnd.pizzariaBackEnd.Service;
 
 import com.pizzariaBackEnd.pizzariaBackEnd.DTO.UsuarioDTO;
-import com.pizzariaBackEnd.pizzariaBackEnd.Entity.Endereco;
 import com.pizzariaBackEnd.pizzariaBackEnd.Entity.Usuario;
 import com.pizzariaBackEnd.pizzariaBackEnd.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +52,7 @@ public class UsuarioService {
     public void deletar(final Long id){
 
         final Usuario usuarioBanco = this.usuarioRepository.findById(id).orElse(null);
-
         Assert.isTrue(usuarioBanco != null, "Registro não encontrado");
-
         this.usuarioRepository.delete(usuarioBanco);
 
     }
