@@ -28,7 +28,37 @@ public class PedidoService {
         return toPedidoDTO(pedido);
     }
 
+    public String editar(Long id, PedidoDTO pedidoDTO){
+
+        Pedido pedidoBanco = this.pedidoRepository.findById(id).orElse(null);
+        Assert.isTrue(pedidoBanco != null, "Pedido nao encontrado");
+
+        Assert.isTrue(pedidoDTO.getIdUsuario() == null, "Informe o Cliente");
+        Assert.isTrue(pedidoDTO.getNome() == null, "Informe o nome do Pedido");
+        Assert.isTrue(pedidoDTO.getEstado() == null, "Informe o Estado");
+
+        pedidoBanco.setNome(pedidoDTO.getNome());
+        pedidoBanco.setObs(pedidoDTO.getObs());
+        pedidoBanco.setIdUsuario(pedidoDTO.getIdUsuario());
+        pedidoBanco.setEstado(pedidoDTO.getEstado());
+
+        this.pedidoRepository.save(pedidoBanco);
+
+        return pedidoDTO.getNome() + " editado com sucesso";
+    }
+
+    public String deletar(Long id){
+
+        Pedido pedido = this.pedidoRepository.findById(id).orElse(null);
+        Assert.isTrue(pedido != null, "Pedido nao encontrado");
+
+        this.pedidoRepository.delete(pedido);
+
+        return "Pedido deletado com sucesso";
+    }
+
     public PedidoDTO findById(Long id){
+
         Pedido pedidoBanco = pedidoRepository.findById(id).orElse(null);
 
         return toPedidoDTO(pedidoBanco);
@@ -45,33 +75,13 @@ public class PedidoService {
         return pedidoDTOList;
     }
 
-    public String editar(Long id, PedidoDTO pedidoDTO){
-        Pedido pedido = this.pedidoRepository.findById(id).orElse(null);
-
-        Assert.isTrue(pedido != null, "Pedido nao encontrado");
-        //fazer verificacoes
-
-        this.pedidoRepository.save(toPedido(pedidoDTO));
-
-        return pedidoDTO.getNome() + " editado";
-    }
-
-    public String deletar(Long id){
-        Pedido pedido = this.pedidoRepository.findById(id).orElse(null);
-
-        Assert.isTrue(pedido != null, "Pedido nao encontrado");
-
-        this.pedidoRepository.delete(pedido);
-
-        return "Pedido deletado";
-    }
-
     public PedidoDTO toPedidoDTO(Pedido pedido){
         PedidoDTO pedidoDTO = new PedidoDTO();
 
         pedidoDTO.setNome(pedido.getNome());
         pedidoDTO.setObs(pedido.getObs());
         pedidoDTO.setIdUsuario(pedido.getIdUsuario());
+        pedidoDTO.setEstado(pedido.getEstado());
 
         return pedidoDTO;
     }
@@ -82,6 +92,7 @@ public class PedidoService {
         pedido.setNome(pedidoDTO.getNome());
         pedido.setObs(pedidoDTO.getObs());
         pedido.setIdUsuario(pedidoDTO.getIdUsuario());
+        pedido.setEstado(pedidoDTO.getEstado());
 
         return pedido;
     }

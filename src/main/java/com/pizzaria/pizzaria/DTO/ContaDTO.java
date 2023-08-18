@@ -19,7 +19,7 @@ public class ContaDTO {
 
     }
 
-    public ContaDTO(Long id,String email, String senha, Usuario usuario) {
+    public ContaDTO(Long id, String email, String senha, Usuario usuario) {
         this.id = id;
         this.email = email;
         this.senha = senha;

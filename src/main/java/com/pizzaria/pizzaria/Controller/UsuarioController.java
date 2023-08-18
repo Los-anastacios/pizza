@@ -1,5 +1,6 @@
 package com.pizzaria.pizzaria.Controller;
 
+import com.pizzaria.pizzaria.DTO.EnderecoDTO;
 import com.pizzaria.pizzaria.DTO.UsuarioDTO;
 import com.pizzaria.pizzaria.Service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +48,20 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/list")
+
+    @GetMapping("/lista")
     public ResponseEntity<List<UsuarioDTO>> findAllUsuario(@RequestBody final UsuarioDTO usuarioDTO){
         try {
             return ResponseEntity.ok(usuarioService.findAllUsuario());
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<UsuarioDTO> findById(@PathVariable("id") Long id){
+        try {
+            return ResponseEntity.ok(this.usuarioService.findById(id));
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

@@ -17,9 +17,36 @@ public class SaborService {
     private SaborRepository saborRepository;
 
     public SaborDTO cadastrar(SaborDTO saborDTO){
+
+        Assert.isTrue(saborDTO.getNome() == null, "Informe o nome");
+        Assert.isTrue(saborDTO.getItem() == null, "Informe o Item");
+
         Sabor sabor = this.saborRepository.save(toSabor(saborDTO));
 
         return toSaborDTO(sabor);
+    }
+
+    public String editar(Long id, SaborDTO saborDTO){
+
+        Sabor saborBanco = this.saborRepository.findById(id).orElse(null);
+        Assert.isTrue(saborBanco != null, "sabor nao encontrado");
+
+        Assert.isTrue(saborDTO.getNome() == null, "Informe o nome");
+        Assert.isTrue(saborDTO.getItem() == null, "Informe o Item");
+
+        this.saborRepository.save(saborBanco);
+
+        return saborDTO.getNome() + "editado com sucesso";
+    }
+
+    public String deletar(Long id){
+        Sabor sabor = this.saborRepository.findById(id).orElse(null);
+
+        Assert.isTrue(sabor != null, "Sabor nao encontrado");
+
+        this.saborRepository.delete(sabor);
+
+        return "sabor deletado com sucesso";
     }
 
     public SaborDTO findById(Long id){
@@ -37,26 +64,6 @@ public class SaborService {
         }
 
         return saborDTOBanco;
-    }
-
-    public String editar(Long id, SaborDTO saborDTO){
-        Sabor sabor = this.saborRepository.findById(id).orElse(null);
-
-        Assert.isTrue(sabor != null, "sabor nao encontrado");
-
-        this.saborRepository.save(toSabor(saborDTO));
-
-        return saborDTO.getNome() + "editado com sucesso";
-    }
-
-    public String deletar(Long id){
-        Sabor sabor = this.saborRepository.findById(id).orElse(null);
-
-        Assert.isTrue(sabor != null, "Sabor nao encontrado");
-
-        this.saborRepository.delete(sabor);
-
-        return "sabor deletado com sucesso";
     }
 
     public SaborDTO toSaborDTO(Sabor sabor){

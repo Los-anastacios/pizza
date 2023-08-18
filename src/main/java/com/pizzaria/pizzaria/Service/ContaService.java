@@ -1,12 +1,8 @@
 package com.pizzaria.pizzaria.Service;
 
 import com.pizzaria.pizzaria.DTO.ContaDTO;
-import com.pizzaria.pizzaria.DTO.ContaDTO;
-import com.pizzaria.pizzaria.DTO.PedidoDTO;
-import com.pizzaria.pizzaria.DTO.UsuarioDTO;
+
 import com.pizzaria.pizzaria.Entity.Conta;
-import com.pizzaria.pizzaria.Entity.Pedido;
-import com.pizzaria.pizzaria.Entity.Usuario;
 import com.pizzaria.pizzaria.Repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,9 +21,9 @@ public class ContaService {
 
         Conta conta = contaRepository.save(toConta(contaDTO));
 
+
         return toContaDTO(conta);
     }
-
 
     public List<ContaDTO> buscarTodos(){
         List<Conta> contaListBanco = contaRepository.findAll();
@@ -43,12 +39,13 @@ public class ContaService {
     public Conta toConta(ContaDTO userDTO){
         Conta conta = new Conta();
 
-        conta.setEmail(userDTO.getEmail());
-        conta.setSenha(userDTO.getSenha());
-        conta.setUsuario(userDTO.getUsuario());
+        conta.setEmail(contaDTO.getEmail());
+        conta.setSenha(contaDTO.getSenha());
+        conta.setUsuario(contaDTO.getUsuario());
 
         return conta;
     }
+
 
     public ContaDTO toContaDTO(Conta conta){
         ContaDTO contaDTO = new ContaDTO();
@@ -57,7 +54,7 @@ public class ContaService {
         contaDTO.setSenha(conta.getSenha());
         contaDTO.setUsuario(conta.getUsuario());
 
-        return   contaDTO;
+        return contaDTO;
     }
 
     public String editar(Long id, ContaDTO contaDTO){
