@@ -1,10 +1,12 @@
 package com.pizzaria.pizzaria.Service;
 
 import com.pizzaria.pizzaria.DTO.ContaDTO;
+
 import com.pizzaria.pizzaria.Entity.Conta;
 import com.pizzaria.pizzaria.Repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +19,10 @@ public class ContaService {
 
     public ContaDTO cadastrar(ContaDTO contaDTO){
 
-        Conta conta = contaRepository.save(toUser(contaDTO));
+        Conta conta = contaRepository.save(toConta(contaDTO));
 
-        return toUserDTO(conta);
+
+        return toContaDTO(conta);
     }
 
     public List<ContaDTO> buscarTodos(){
@@ -27,13 +30,13 @@ public class ContaService {
         List<ContaDTO> contaDTOList = new ArrayList<>();
 
         for(int i = 0; i< contaListBanco.size(); i++){
-            contaDTOList.add(toUserDTO(contaListBanco.get(i)));
+            contaDTOList.add(toContaDTO(contaListBanco.get(i)));
         }
 
         return contaDTOList;
     }
 
-    public Conta toUser(ContaDTO contaDTO){
+    public Conta toConta(ContaDTO userDTO){
         Conta conta = new Conta();
 
         conta.setEmail(contaDTO.getEmail());
@@ -43,7 +46,8 @@ public class ContaService {
         return conta;
     }
 
-    public ContaDTO toUserDTO(Conta conta){
+
+    public ContaDTO toContaDTO(Conta conta){
         ContaDTO contaDTO = new ContaDTO();
 
         contaDTO.setEmail(conta.getEmail());
@@ -53,5 +57,35 @@ public class ContaService {
         return contaDTO;
     }
 
+    public String editar(Long id, ContaDTO contaDTO){
+        Conta conta = this.contaRepository.findById(id).orElse(null);
+
+        Assert.isTrue(conta != null, "conta nao encontrado");
+        //fazer verificacoes
+
+        this.contaRepository.save(toConta(contaDTO));
+
+        return contaDTO.getId() + " editado";
+    }
+
+    public String deletar(Long id){
+        Conta contaBanco = contaRepository.findById(id).orElse(null);
+
+        Assert.isTrue(contaBanco != null, "Conta nao encontrado");
+        contaRepository.delete(contaBanco);
+
+        return "conta deletado";
+    }
+
+    public List<ContaDTO> findAllConta(){
+        List<Conta> contaBanco = contaRepository.findAll();
+        List<ContaDTO> contaDTOBanco = new ArrayList<>();
+
+        for (int i=0; i< contaBanco.size();i++){
+            contaDTOBanco.add(toContaDTO(contaBanco.get(i)));
+        }
+
+        return  contaDTOBanco;
+    }
 
 }
