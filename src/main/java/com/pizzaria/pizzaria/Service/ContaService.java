@@ -1,8 +1,8 @@
 package com.pizzaria.pizzaria.Service;
 
-import com.pizzaria.pizzaria.DTO.UserDTO;
+import com.pizzaria.pizzaria.DTO.ContaDTO;
 import com.pizzaria.pizzaria.Entity.Conta;
-import com.pizzaria.pizzaria.Repository.UserRepository;
+import com.pizzaria.pizzaria.Repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,48 +10,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class ContaService {
 
     @Autowired
-    private UserRepository userRepository;
+    private ContaRepository contaRepository;
 
-    public UserDTO cadastrar(UserDTO userDTO){
+    public ContaDTO cadastrar(ContaDTO contaDTO){
 
-        Conta conta = userRepository.save(toUser(userDTO));
+        Conta conta = contaRepository.save(toUser(contaDTO));
 
         return toUserDTO(conta);
     }
 
-
-    public List<UserDTO> buscarTodos(){
-        List<Conta> contaListBanco = userRepository.findAll();
-        List<UserDTO> userDTOList = new ArrayList<>();
+    public List<ContaDTO> buscarTodos(){
+        List<Conta> contaListBanco = contaRepository.findAll();
+        List<ContaDTO> contaDTOList = new ArrayList<>();
 
         for(int i = 0; i< contaListBanco.size(); i++){
-            userDTOList.add(toUserDTO(contaListBanco.get(i)));
+            contaDTOList.add(toUserDTO(contaListBanco.get(i)));
         }
 
-        return userDTOList;
+        return contaDTOList;
     }
 
-    public Conta toUser(UserDTO userDTO){
+    public Conta toUser(ContaDTO contaDTO){
         Conta conta = new Conta();
 
-        conta.setEmail(userDTO.getEmail());
-        conta.setSenha(userDTO.getSenha());
-        conta.setUsuario(userDTO.getUsuario());
+        conta.setEmail(contaDTO.getEmail());
+        conta.setSenha(contaDTO.getSenha());
+        conta.setUsuario(contaDTO.getUsuario());
 
         return conta;
     }
 
-    public UserDTO toUserDTO(Conta conta){
-        UserDTO userDTO = new UserDTO();
+    public ContaDTO toUserDTO(Conta conta){
+        ContaDTO contaDTO = new ContaDTO();
 
-        userDTO.setEmail(conta.getEmail());
-        userDTO.setSenha(conta.getSenha());
-        userDTO.setUsuario(conta.getUsuario());
+        contaDTO.setEmail(conta.getEmail());
+        contaDTO.setSenha(conta.getSenha());
+        contaDTO.setUsuario(conta.getUsuario());
 
-        return userDTO;
+        return contaDTO;
     }
 
 

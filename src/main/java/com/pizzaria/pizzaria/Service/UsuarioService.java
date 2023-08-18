@@ -16,46 +16,40 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public void cadastrar(UsuarioDTO usuarioDTO){
-        this.usuarioRepository.save(toUsuario(usuarioDTO));
+    public UsuarioDTO cadastrar(UsuarioDTO usuarioDTO){
 
-    }
+        Assert.isTrue(usuarioDTO.getNome() ==  null, "Insira um nome!");
+        Assert.isTrue(usuarioDTO.getTelefone() == null, "Insira um telefone válido");
+        Assert.isTrue(usuarioDTO.getCPF() == null, "Insira um Cpf válido");
+        Assert.isTrue(usuarioDTO.getEnderecos() == null, "Insira um Endereço válido");
 
-    public List<UsuarioDTO> findByNome(String nome){
-        List<Usuario> usuarioBanco = this.usuarioRepository.findPessoaByNome(nome);
-        List<UsuarioDTO> usuarioDTOList = new ArrayList<>();
-
-        for(int i = 0; i < usuarioBanco.size(); i++){
-            usuarioDTOList.add(toUsuarioDTO(usuarioBanco.get(i)));
-        }
-
-        return usuarioDTOList;
-    }
-
-
-    public List<UsuarioDTO> findAllUsuarios(){
-        List<Usuario> usuariosBanco = usuarioRepository.findAll();
-        List<UsuarioDTO> usuarioDTOList = new ArrayList<>();
-
-        for(int i = 0; i < usuariosBanco.size(); i++){
-            usuarioDTOList.add(toUsuarioDTO(usuariosBanco.get(i)));
-        }
-
-        return usuarioDTOList;
+        Usuario usuario = this.usuarioRepository.save(toUsuario(usuarioDTO));
+        return toUsuarioDTO(usuario);
     }
 
     public String editar(Long id,UsuarioDTO usuarioDTO){
-        Usuario usuarioBanco = usuarioRepository.findById(id).orElse(null);
 
+        Usuario usuarioBanco = usuarioRepository.findById(id).orElse(null);
         Assert.isTrue(usuarioBanco != null, "Usuario nao encontrado");
-        usuarioRepository.save(toUsuario(usuarioDTO));
+
+        Assert.isTrue(usuarioDTO.getNome() ==  null, "Insira um nome!");
+        Assert.isTrue(usuarioDTO.getTelefone() == null, "Insira um telefone válido");
+        Assert.isTrue(usuarioDTO.getCPF() == null, "Insira um Cpf válido");
+        Assert.isTrue(usuarioDTO.getEnderecos() == null, "Insira um Endereço válido");
+
+        usuarioBanco.setNome(usuarioDTO.getNome());
+        usuarioBanco.setTelefone(usuarioDTO.getTelefone());
+        usuarioBanco.setCpf(usuarioDTO.getCPF());
+        usuarioBanco.setEnderecos(usuarioDTO.getEnderecos());
+
+        this.usuarioRepository.save(toUsuario(usuarioDTO));
 
         return usuarioDTO.getNome() + " editado com sucesso";
     }
 
     public String deletar(Long id){
-        Usuario usuarioBanco = usuarioRepository.findById(id).orElse(null);
 
+        final Usuario usuarioBanco = usuarioRepository.findById(id).orElse(null);
         Assert.isTrue(usuarioBanco != null, "Usuario nao encontrado");
         usuarioRepository.delete(usuarioBanco);
 
@@ -77,6 +71,17 @@ public class UsuarioService {
         Usuario usuarioBanco = this.usuarioRepository.findById(id).orElse(null);
         Assert.isTrue(usuarioBanco != null, "Usuario Inválido");
         return toUsuarioDTO(usuarioBanco);
+    }
+
+    public List<UsuarioDTO> findByNome(String nome){
+        List<Usuario> usuarioBanco = this.usuarioRepository.findPessoaByNome(nome);
+        List<UsuarioDTO> usuarioDTOList = new ArrayList<>();
+
+        for(int i = 0; i < usuarioBanco.size(); i++){
+            usuarioDTOList.add(toUsuarioDTO(usuarioBanco.get(i)));
+        }
+
+        return usuarioDTOList;
     }
 
     public Usuario toUsuario(UsuarioDTO usuarioDTO){
