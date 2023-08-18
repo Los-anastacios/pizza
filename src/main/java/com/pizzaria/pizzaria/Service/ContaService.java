@@ -1,40 +1,46 @@
 package com.pizzaria.pizzaria.Service;
 
-import com.pizzaria.pizzaria.DTO.UserDTO;
+import com.pizzaria.pizzaria.DTO.ContaDTO;
+import com.pizzaria.pizzaria.DTO.ContaDTO;
+import com.pizzaria.pizzaria.DTO.PedidoDTO;
+import com.pizzaria.pizzaria.DTO.UsuarioDTO;
 import com.pizzaria.pizzaria.Entity.Conta;
-import com.pizzaria.pizzaria.Repository.UserRepository;
+import com.pizzaria.pizzaria.Entity.Pedido;
+import com.pizzaria.pizzaria.Entity.Usuario;
+import com.pizzaria.pizzaria.Repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class ContaService {
 
     @Autowired
-    private UserRepository userRepository;
+    private ContaRepository contaRepository;
 
-    public UserDTO cadastrar(UserDTO userDTO){
+    public ContaDTO cadastrar(ContaDTO contaDTO){
 
-        Conta conta = userRepository.save(toUser(userDTO));
+        Conta conta = contaRepository.save(toConta(contaDTO));
 
-        return toUserDTO(conta);
+        return toContaDTO(conta);
     }
 
 
-    public List<UserDTO> buscarTodos(){
-        List<Conta> contaListBanco = userRepository.findAll();
-        List<UserDTO> userDTOList = new ArrayList<>();
+    public List<ContaDTO> buscarTodos(){
+        List<Conta> contaListBanco = contaRepository.findAll();
+        List<ContaDTO> contaDTOList = new ArrayList<>();
 
         for(int i = 0; i< contaListBanco.size(); i++){
-            userDTOList.add(toUserDTO(contaListBanco.get(i)));
+            contaDTOList.add(toContaDTO(contaListBanco.get(i)));
         }
 
-        return userDTOList;
+        return contaDTOList;
     }
 
-    public Conta toUser(UserDTO userDTO){
+    public Conta toConta(ContaDTO userDTO){
         Conta conta = new Conta();
 
         conta.setEmail(userDTO.getEmail());
@@ -44,15 +50,45 @@ public class UserService {
         return conta;
     }
 
-    public UserDTO toUserDTO(Conta conta){
-        UserDTO userDTO = new UserDTO();
+    public ContaDTO toContaDTO(Conta conta){
+        ContaDTO contaDTO = new ContaDTO();
 
-        userDTO.setEmail(conta.getEmail());
-        userDTO.setSenha(conta.getSenha());
-        userDTO.setUsuario(conta.getUsuario());
+        contaDTO.setEmail(conta.getEmail());
+        contaDTO.setSenha(conta.getSenha());
+        contaDTO.setUsuario(conta.getUsuario());
 
-        return userDTO;
+        return   contaDTO;
     }
 
+    public String editar(Long id, ContaDTO contaDTO){
+        Conta conta = this.contaRepository.findById(id).orElse(null);
+
+        Assert.isTrue(conta != null, "conta nao encontrado");
+        //fazer verificacoes
+
+        this.contaRepository.save(toConta(contaDTO));
+
+        return contaDTO.getId() + " editado";
+    }
+
+    public String deletar(Long id){
+        Conta contaBanco = contaRepository.findById(id).orElse(null);
+
+        Assert.isTrue(contaBanco != null, "Conta nao encontrado");
+        contaRepository.delete(contaBanco);
+
+        return "conta deletado";
+    }
+
+    public List<ContaDTO> findAllConta(){
+        List<Conta> contaBanco = contaRepository.findAll();
+        List<ContaDTO> contaDTOBanco = new ArrayList<>();
+
+        for (int i=0; i< contaBanco.size();i++){
+            contaDTOBanco.add(toContaDTO(contaBanco.get(i)));
+        }
+
+        return  contaDTOBanco;
+    }
 
 }
