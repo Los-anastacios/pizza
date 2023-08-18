@@ -49,8 +49,8 @@ public class SaborController {
         }
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<SaborDTO>> findAllSabor(@RequestBody final SaborDTO saborDTO){
+    @GetMapping("/lista")
+    public ResponseEntity<List<SaborDTO>> findAllSabor(){
         try {
             return ResponseEntity.ok(saborService.findAllSabor());
         }catch (Exception e){

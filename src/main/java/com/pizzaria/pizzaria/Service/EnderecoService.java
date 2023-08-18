@@ -86,11 +86,12 @@ public class EnderecoService {
     public EnderecoDTO toEnderecoDTO(Endereco endereco){
         EnderecoDTO enderecoDTO = new EnderecoDTO();
 
-        endereco.setRua(enderecoDTO.getRua());
-        endereco.setCep(enderecoDTO.getCep());
-        endereco.setBairro(enderecoDTO.getBairro());
-        endereco.setComplemento(enderecoDTO.getComplemento());
-        endereco.setNumero(enderecoDTO.getNumero());
+
+        enderecoDTO.setRua(endereco.getRua());
+        enderecoDTO.setCep(endereco.getCep());
+        enderecoDTO.setBairro(endereco.getBairro());
+        enderecoDTO.setComplemento(endereco.getComplemento());
+        enderecoDTO.setNumero(endereco.getNumero());
 
         return enderecoDTO;
     }
@@ -98,11 +99,11 @@ public class EnderecoService {
     public Endereco toEndereco(EnderecoDTO enderecoDTO){
         Endereco endereco = new Endereco();
 
-        enderecoDTO.setRua(endereco.getRua());
-        enderecoDTO.setCep(endereco.getCep());
-        enderecoDTO.setBairro(endereco.getBairro());
-        enderecoDTO.setComplemento(endereco.getComplemento());
-        enderecoDTO.setNumero(endereco.getNumero());
+        endereco.setRua(enderecoDTO.getRua());
+        endereco.setCep(enderecoDTO.getCep());
+        endereco.setBairro(enderecoDTO.getBairro());
+        endereco.setComplemento(enderecoDTO.getComplemento());
+        endereco.setNumero(enderecoDTO.getNumero());
 
         return endereco;
     }

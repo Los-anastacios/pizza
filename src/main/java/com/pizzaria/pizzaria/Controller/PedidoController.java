@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Pedido")
+@RequestMapping("/pedido")
 public class PedidoController {
 
     @Autowired
@@ -48,8 +48,8 @@ public class PedidoController {
         }
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<PedidoDTO>> findAllPedido(@RequestBody final PedidoDTO pedidoDTO){
+    @GetMapping("/lista")
+    public ResponseEntity<List<PedidoDTO>> findAllPedido(){
         try {
             return ResponseEntity.ok(pedidoService.findAllPedido());
         }catch (Exception e){

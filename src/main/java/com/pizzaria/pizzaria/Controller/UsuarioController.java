@@ -50,7 +50,7 @@ public class UsuarioController {
 
 
     @GetMapping("/lista")
-    public ResponseEntity<List<UsuarioDTO>> findAllUsuario(@RequestBody final UsuarioDTO usuarioDTO){
+    public ResponseEntity<List<UsuarioDTO>> findAllUsuario(){
         try {
             return ResponseEntity.ok(usuarioService.findAllUsuario());
         }catch (Exception e){

@@ -13,6 +13,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/item")
 public class ItemController {
 
     @Autowired
@@ -48,8 +50,8 @@ public class ItemController {
         }
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<ItemDTO>> findAllItem(@RequestBody final ItemDTO itemDTO){
+    @GetMapping("/lista")
+    public ResponseEntity<List<ItemDTO>> findAllItem(){
         try {
             return ResponseEntity.ok(itemService.findAllItem());
         }catch (Exception e){

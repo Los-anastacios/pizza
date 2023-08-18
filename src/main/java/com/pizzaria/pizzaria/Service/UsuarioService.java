@@ -88,6 +88,7 @@ public class UsuarioService {
 
         Usuario usuario = new Usuario();
 
+        usuario.setId(usuarioDTO.getId());
         usuario.setCpf(usuarioDTO.getCPF());
         usuario.setNome(usuarioDTO.getNome());
         usuario.setTelefone(usuarioDTO.getTelefone());
@@ -99,6 +100,7 @@ public class UsuarioService {
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
 
+        usuarioDTO.setId(usuario.getId());
         usuarioDTO.setCPF(usuario.getCpf());
         usuarioDTO.setNome(usuario.getNome());
         usuarioDTO.setTelefone(usuario.getTelefone());
