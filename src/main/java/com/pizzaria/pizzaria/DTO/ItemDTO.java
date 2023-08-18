@@ -14,15 +14,16 @@ public class ItemDTO {
 
     private Boolean entrega;
 
-    private Pedido pedido;
+    private Pedido idPedido;
 
     public ItemDTO(){
 
     }
 
-    public ItemDTO(String tamanho, Boolean entrega, Pedido pedido) {
+    public ItemDTO(Long id,String tamanho, Boolean entrega, Pedido idPedido) {
+        this.id = id;
         this.tamanho = tamanho;
         this.entrega = entrega;
-        this.pedido = pedido;
+        this.idPedido = idPedido;
     }
 }

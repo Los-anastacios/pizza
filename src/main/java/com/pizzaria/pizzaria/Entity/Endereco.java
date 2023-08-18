@@ -20,6 +20,15 @@ public class Endereco {
     @Column(name = "numero")
     private int numero;
 
+    @Column(name = "bairro")
+    private String bairro;
+
+    @Column(name = "cep")
+    private String cep;
+
+    @Column(name = "complemento")
+    private String complemento;
+
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;

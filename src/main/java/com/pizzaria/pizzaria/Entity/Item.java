@@ -13,14 +13,16 @@ import java.util.List;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
-    private Pedido pedido;
+    private Pedido idPedido;
 
     private String tamanho;
 
     private Boolean entrega;
+
     @ManyToMany
     @JoinTable(name = "itemSabor", joinColumns = @JoinColumn(name = "idSabor"), inverseJoinColumns = @JoinColumn(name = "idItem"))
     private List<Sabor> sabor = new ArrayList<>();

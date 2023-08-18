@@ -11,6 +11,7 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "nome")
@@ -21,7 +22,11 @@ public class Pedido {
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
-    private Usuario usuario;
+    private Usuario idUsuario;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name ="estado")
+    private Estado estado;
 
 
 }

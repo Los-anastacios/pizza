@@ -18,7 +18,11 @@ public class PedidoService {
 
 
     public PedidoDTO cadastrar(PedidoDTO pedidoDTO){
-        //fazer verificacoes
+
+        Assert.isTrue(pedidoDTO.getIdUsuario() == null, "Informe o Cliente");
+        Assert.isTrue(pedidoDTO.getNome() == null, "Informe o nome do Pedido");
+        Assert.isTrue(pedidoDTO.getEstado() == null, "Informe o Estado");
+
         Pedido pedido = this.pedidoRepository.save(toPedido(pedidoDTO));
 
         return toPedidoDTO(pedido);
@@ -67,7 +71,7 @@ public class PedidoService {
 
         pedidoDTO.setNome(pedido.getNome());
         pedidoDTO.setObs(pedido.getObs());
-        pedidoDTO.setUsuario(pedido.getUsuario());
+        pedidoDTO.setIdUsuario(pedido.getIdUsuario());
 
         return pedidoDTO;
     }
@@ -77,7 +81,7 @@ public class PedidoService {
 
         pedido.setNome(pedidoDTO.getNome());
         pedido.setObs(pedidoDTO.getObs());
-        pedido.setUsuario(pedidoDTO.getUsuario());
+        pedido.setIdUsuario(pedidoDTO.getIdUsuario());
 
         return pedido;
     }
