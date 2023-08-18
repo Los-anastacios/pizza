@@ -18,16 +18,18 @@ public class ItemService {
     private ItemRepository itemRepository;
 
     @Transactional(rollbackFor = Exception.class)
-    public void cadastrar(final ItemDTO itemDTO){
+    public ItemDTO cadastrar(final ItemDTO itemDTO){
 
         Assert.isTrue(itemDTO.getIdPedido() == null, "Insira um Pedido");
         Assert.isTrue(itemDTO.getTamanho() == null, "Insira um tamanho valido");
 
-        this.itemRepository.save(toItem(itemDTO));
+        Item item = this.itemRepository.save(toItem(itemDTO));
+
+        return toItemDTO(item);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void editar(final Long id, final  ItemDTO itemDTO){
+    public String editar(final Long id, final  ItemDTO itemDTO){
 
         final Item itemBanco = this.itemRepository.findById(id).orElse(null);
 
@@ -38,14 +40,20 @@ public class ItemService {
         itemBanco.setTamanho(itemDTO.getTamanho());
 
         this.itemRepository.save(itemBanco);
+
+        return itemDTO.getIdPedido() + ": editado com sucesso";
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void deletar(final Long id){
+    public String deletar(final Long id){
 
         final Item itemBanco = this.itemRepository.findById(id).orElse(null);
         Assert.isTrue(itemBanco != null, "Registro nao encontrado");
+
         this.itemRepository.delete(itemBanco);
+
+        return "Item deletado com sucesso";
+
     }
 
     public List<ItemDTO> findAllItem(){

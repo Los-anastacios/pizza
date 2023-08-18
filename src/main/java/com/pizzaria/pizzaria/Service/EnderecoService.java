@@ -5,6 +5,7 @@ import com.pizzaria.pizzaria.Entity.Endereco;
 import com.pizzaria.pizzaria.Repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-    public void cadastrar(EnderecoDTO enderecoDTO){
+    @Transactional(rollbackFor = Exception.class)
+    public EnderecoDTO cadastrar(EnderecoDTO enderecoDTO){
 
         Assert.isTrue(enderecoDTO.getRua() == null, "Informe o nome da rua");
         Assert.isTrue(enderecoDTO.getBairro() == null, "informe o bairro");
@@ -25,14 +27,16 @@ public class EnderecoService {
         Assert.isTrue(enderecoDTO.getComplemento() == null, "Informe o Complemento");
         Assert.isTrue(enderecoDTO.getUsuario() == null, "Informe o Usuario");
 
-        this.enderecoRepository.save(toEndereco(enderecoDTO));
+        Endereco endereco = this.enderecoRepository.save(toEndereco(enderecoDTO));
+
+        return toEnderecoDTO(endereco);
     }
 
-
-    public void editar(Long id,EnderecoDTO enderecoDTO){
+    @Transactional(rollbackFor = Exception.class)
+    public String editar(Long id,EnderecoDTO enderecoDTO){
 
         Endereco enderecoBanco = this.enderecoRepository.findById(id).orElse(null);
-
+        Assert.isTrue(enderecoBanco != null, "Endereco nao encontrado");
 
         Assert.isTrue(enderecoDTO.getRua() == null, "Informe o nome da rua");
         Assert.isTrue(enderecoDTO.getBairro() == null, "informe o bairro");
@@ -47,26 +51,18 @@ public class EnderecoService {
         enderecoBanco.setComplemento(enderecoDTO.getComplemento());
         enderecoBanco.setNumero(enderecoDTO.getNumero());
 
-        Assert.isTrue(enderecoBanco != null, "Endereco nao encontrado");
         this.enderecoRepository.save(enderecoBanco);
-    }
 
-    public void deletar(Long id){
+        return enderecoDTO.getRua() + "editado com sucesso";
+    }
+    @Transactional(rollbackFor = Exception.class)
+    public String deletar(Long id){
         Endereco enderecoBanco = this.enderecoRepository.findById(id).orElse(null);
 
         Assert.isTrue(enderecoBanco != null, "Endereco nao encontrado");
         this.enderecoRepository.delete(enderecoBanco);
-    }
 
-    public List<EnderecoDTO> findAllEnderecos(){
-        List<Endereco> enderecosBanco = enderecoRepository.findAll();
-        List<EnderecoDTO> enderecoDTOList = new ArrayList<>();
-
-        for(int i = 0; i < enderecosBanco.size(); i++){
-            enderecoDTOList.add(toEnderecoDTO(enderecosBanco.get(i)));
-        }
-
-        return enderecoDTOList;
+        return "Endereco deletado com sucesso";
     }
 
     public List<EnderecoDTO> findAllEndereco(){
