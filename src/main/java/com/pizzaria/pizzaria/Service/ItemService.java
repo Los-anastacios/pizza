@@ -20,8 +20,8 @@ public class ItemService {
     @Transactional(rollbackFor = Exception.class)
     public ItemDTO cadastrar(final ItemDTO itemDTO){
 
-        Assert.isTrue(itemDTO.getIdPedido() == null, "Insira um Pedido");
-        Assert.isTrue(itemDTO.getTamanho() == null, "Insira um tamanho valido");
+        // Assert.isTrue(itemDTO.getIdPedido() == null, "Insira um Pedido");
+        // Assert.isTrue(itemDTO.getTamanho() == null, "Insira um tamanho valido");
 
         Item item = this.itemRepository.save(toItem(itemDTO));
 
@@ -33,8 +33,8 @@ public class ItemService {
 
         final Item itemBanco = this.itemRepository.findById(id).orElse(null);
 
-        Assert.isTrue(itemDTO.getIdPedido() == null, "Insira um Pedido");
-        Assert.isTrue(itemDTO.getTamanho() == null, "Insira um tamanho valido");
+        // Assert.isTrue(itemDTO.getIdPedido() == null, "Insira um Pedido");
+        // Assert.isTrue(itemDTO.getTamanho() == null, "Insira um tamanho valido");
 
         itemBanco.setIdPedido(itemDTO.getIdPedido());
         itemBanco.setTamanho(itemDTO.getTamanho());
@@ -48,7 +48,7 @@ public class ItemService {
     public String deletar(final Long id){
 
         final Item itemBanco = this.itemRepository.findById(id).orElse(null);
-        Assert.isTrue(itemBanco != null, "Registro nao encontrado");
+        //  Assert.isTrue(itemBanco != null, "Registro nao encontrado");
 
         this.itemRepository.delete(itemBanco);
 
@@ -69,13 +69,14 @@ public class ItemService {
     public ItemDTO findByID(Long id){
 
         Item itemBanco = this.itemRepository.findById(id).orElse(null);
-        Assert.isTrue(itemBanco != null, "Item Inválido");
+        // Assert.isTrue(itemBanco != null, "Item Inválido");
         return toItemDTO(itemBanco);
     }
 
     public ItemDTO toItemDTO(Item item){
         ItemDTO itemDTO = new ItemDTO();
 
+        itemDTO.setId(item.getId());
         itemDTO.setEntrega(item.getEntrega());
         itemDTO.setTamanho(item.getTamanho());
         itemDTO.setIdPedido(item.getIdPedido());
@@ -86,6 +87,7 @@ public class ItemService {
     public Item toItem(ItemDTO itemDTO){
         Item item = new Item();
 
+        item.setId(itemDTO.getId());
         item.setEntrega(itemDTO.getEntrega());
         item.setTamanho(itemDTO.getTamanho());
         item.setIdPedido(itemDTO.getIdPedido());

@@ -1,5 +1,6 @@
 package com.pizzaria.pizzaria.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,11 +32,17 @@ public class Endereco {
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
+    @JsonBackReference
     private Usuario usuario;
 
     public Endereco(){
 
     }
 
-
+    public Endereco(String rua, int numero, String bairro, Usuario usuario) {
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.usuario = usuario;
+    }
 }

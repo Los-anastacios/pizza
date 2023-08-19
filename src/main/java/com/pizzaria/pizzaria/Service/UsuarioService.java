@@ -16,15 +16,15 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioDTO cadastrar(UsuarioDTO usuarioDTO){
+    public void cadastrar(UsuarioDTO usuarioDTO){
 
-        Assert.isTrue(usuarioDTO.getNome() ==  null, "Insira um nome!");
-        Assert.isTrue(usuarioDTO.getTelefone() == null, "Insira um telefone válido");
-        Assert.isTrue(usuarioDTO.getCPF() == null, "Insira um Cpf válido");
-        Assert.isTrue(usuarioDTO.getEnderecos() == null, "Insira um Endereço válido");
+        //Assert.isTrue(usuarioDTO.getNome() ==  null, "Insira um nome!");
+        // Assert.isTrue(usuarioDTO.getTelefone() == null, "Insira um telefone válido");
+        // Assert.isTrue(usuarioDTO.getCPF() == null, "Insira um Cpf válido");
+        // Assert.isTrue(usuarioDTO.getEnderecos() == null, "Insira um Endereço válido");
 
-        Usuario usuario = this.usuarioRepository.save(toUsuario(usuarioDTO));
-        return toUsuarioDTO(usuario);
+        this.usuarioRepository.save(toUsuario(usuarioDTO));
+
     }
 
     public String editar(Long id,UsuarioDTO usuarioDTO){
@@ -32,10 +32,10 @@ public class UsuarioService {
         Usuario usuarioBanco = usuarioRepository.findById(id).orElse(null);
         Assert.isTrue(usuarioBanco != null, "Usuario nao encontrado");
 
-        Assert.isTrue(usuarioDTO.getNome() ==  null, "Insira um nome!");
-        Assert.isTrue(usuarioDTO.getTelefone() == null, "Insira um telefone válido");
-        Assert.isTrue(usuarioDTO.getCPF() == null, "Insira um Cpf válido");
-        Assert.isTrue(usuarioDTO.getEnderecos() == null, "Insira um Endereço válido");
+        //Assert.isTrue(usuarioDTO.getNome() ==  null, "Insira um nome!");
+        // Assert.isTrue(usuarioDTO.getTelefone() == null, "Insira um telefone válido");
+        // Assert.isTrue(usuarioDTO.getCPF() == null, "Insira um Cpf válido");
+        //Assert.isTrue(usuarioDTO.getEnderecos() == null, "Insira um Endereço válido");
 
         usuarioBanco.setNome(usuarioDTO.getNome());
         usuarioBanco.setTelefone(usuarioDTO.getTelefone());
@@ -50,7 +50,7 @@ public class UsuarioService {
     public String deletar(Long id){
 
         final Usuario usuarioBanco = usuarioRepository.findById(id).orElse(null);
-        Assert.isTrue(usuarioBanco != null, "Usuario nao encontrado");
+        //Assert.isTrue(usuarioBanco != null, "Usuario nao encontrado");
         usuarioRepository.delete(usuarioBanco);
 
         return "usuario deletado";
@@ -69,7 +69,7 @@ public class UsuarioService {
 
     public UsuarioDTO findById(Long id){
         Usuario usuarioBanco = this.usuarioRepository.findById(id).orElse(null);
-        Assert.isTrue(usuarioBanco != null, "Usuario Inválido");
+        //Assert.isTrue(usuarioBanco != null, "Usuario Inválido");
         return toUsuarioDTO(usuarioBanco);
     }
 

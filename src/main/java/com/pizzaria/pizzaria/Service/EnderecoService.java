@@ -20,12 +20,12 @@ public class EnderecoService {
     @Transactional(rollbackFor = Exception.class)
     public EnderecoDTO cadastrar(EnderecoDTO enderecoDTO){
 
-        Assert.isTrue(enderecoDTO.getRua() == null, "Informe o nome da rua");
-        Assert.isTrue(enderecoDTO.getBairro() == null, "informe o bairro");
-        Assert.isTrue(enderecoDTO.getCep() == null, "Informe o Cep");
-        Assert.isTrue(enderecoDTO.getNumero() <= 0, "Informe o numero");
-        Assert.isTrue(enderecoDTO.getComplemento() == null, "Informe o Complemento");
-        Assert.isTrue(enderecoDTO.getUsuario() == null, "Informe o Usuario");
+        //Assert.isTrue(enderecoDTO.getRua() == null, "Informe o nome da rua");
+        //Assert.isTrue(enderecoDTO.getBairro() == null, "informe o bairro");
+        //Assert.isTrue(enderecoDTO.getCep() == null, "Informe o Cep");
+        //Assert.isTrue(enderecoDTO.getNumero() <= 0, "Informe o numero");
+        // Assert.isTrue(enderecoDTO.getComplemento() == null, "Informe o Complemento");
+        // Assert.isTrue(enderecoDTO.getUsuario() == null, "Informe o Usuario");
 
         Endereco endereco = this.enderecoRepository.save(toEndereco(enderecoDTO));
 
@@ -33,18 +33,19 @@ public class EnderecoService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public String editar(Long id,EnderecoDTO enderecoDTO){
+    public String editar(Long id,EnderecoDTO enderecoDTO) {
 
         Endereco enderecoBanco = this.enderecoRepository.findById(id).orElse(null);
         Assert.isTrue(enderecoBanco != null, "Endereco nao encontrado");
 
-        Assert.isTrue(enderecoDTO.getRua() == null, "Informe o nome da rua");
-        Assert.isTrue(enderecoDTO.getBairro() == null, "informe o bairro");
-        Assert.isTrue(enderecoDTO.getCep() == null, "Informe o Cep");
-        Assert.isTrue(enderecoDTO.getNumero() <= 0, "Informe o numero");
-        Assert.isTrue(enderecoDTO.getComplemento() == null, "Informe o Complemento");
-        Assert.isTrue(enderecoDTO.getUsuario() == null, "Informe o Usuario");
+        //Assert.isTrue(enderecoDTO.getRua() == null, "Informe o nome da rua");
+        //Assert.isTrue(enderecoDTO.getBairro() == null, "informe o bairro");
+        //Assert.isTrue(enderecoDTO.getCep() == null, "Informe o Cep");
+        //Assert.isTrue(enderecoDTO.getNumero() <= 0, "Informe o numero");
+        //Assert.isTrue(enderecoDTO.getComplemento() == null, "Informe o Complemento");
+        //Assert.isTrue(enderecoDTO.getUsuario() == null, "Informe o Usuario");
 
+        enderecoBanco.setId(enderecoDTO.getId());
         enderecoBanco.setRua(enderecoDTO.getRua());
         enderecoBanco.setCep(enderecoDTO.getCep());
         enderecoBanco.setBairro(enderecoDTO.getBairro());
@@ -59,7 +60,7 @@ public class EnderecoService {
     public String deletar(Long id){
         Endereco enderecoBanco = this.enderecoRepository.findById(id).orElse(null);
 
-        Assert.isTrue(enderecoBanco != null, "Endereco nao encontrado");
+        //  Assert.isTrue(enderecoBanco != null, "Endereco nao encontrado");
         this.enderecoRepository.delete(enderecoBanco);
 
         return "Endereco deletado com sucesso";
@@ -79,7 +80,7 @@ public class EnderecoService {
     public EnderecoDTO findById(Long id){
 
         Endereco enderecoBanco = this.enderecoRepository.findById(id).orElse(null);
-        Assert.isTrue(enderecoBanco != null, "Produto Inválido");
+        // Assert.isTrue(enderecoBanco != null, "Produto Inválido");
         return toEnderecoDTO(enderecoBanco);
     }
 
@@ -87,11 +88,13 @@ public class EnderecoService {
         EnderecoDTO enderecoDTO = new EnderecoDTO();
 
 
+        enderecoDTO.setId(endereco.getId());
         enderecoDTO.setRua(endereco.getRua());
         enderecoDTO.setCep(endereco.getCep());
         enderecoDTO.setBairro(endereco.getBairro());
         enderecoDTO.setComplemento(endereco.getComplemento());
         enderecoDTO.setNumero(endereco.getNumero());
+        enderecoDTO.setUsuario(endereco.getUsuario());
 
         return enderecoDTO;
     }
@@ -99,11 +102,13 @@ public class EnderecoService {
     public Endereco toEndereco(EnderecoDTO enderecoDTO){
         Endereco endereco = new Endereco();
 
+        endereco.setId(enderecoDTO.getId());
         endereco.setRua(enderecoDTO.getRua());
         endereco.setCep(enderecoDTO.getCep());
         endereco.setBairro(enderecoDTO.getBairro());
         endereco.setComplemento(enderecoDTO.getComplemento());
         endereco.setNumero(enderecoDTO.getNumero());
+        endereco.setUsuario(enderecoDTO.getUsuario());
 
         return endereco;
     }

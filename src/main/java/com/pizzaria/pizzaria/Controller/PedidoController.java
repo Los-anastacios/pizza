@@ -19,10 +19,10 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrar(@RequestBody final PedidoDTO pedidoDTO){
+    public ResponseEntity<PedidoDTO> cadastrar(@RequestBody final PedidoDTO pedidoDTO){
         try {
-            pedidoService.cadastrar(pedidoDTO);
-            return ResponseEntity.ok("Pedido, cadastrado com sucesso");
+            //pedidoService.cadastrar(pedidoDTO);
+            return ResponseEntity.ok(pedidoService.cadastrar(pedidoDTO));
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
