@@ -50,7 +50,7 @@ public class EnderecoController {
     }
 
     @GetMapping("/lista")
-    public ResponseEntity<List<EnderecoDTO>> findAllEndereco(@RequestBody final EnderecoDTO enderecoDTO){
+    public ResponseEntity<List<EnderecoDTO>> findAllEndereco(){
         try {
             return ResponseEntity.ok(enderecoService.findAllEndereco());
         }catch (Exception e){

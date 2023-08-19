@@ -18,8 +18,8 @@ public class SaborService {
 
     public SaborDTO cadastrar(SaborDTO saborDTO){
 
-        Assert.isTrue(saborDTO.getNome() == null, "Informe o nome");
-        Assert.isTrue(saborDTO.getItem() == null, "Informe o Item");
+        // Assert.isTrue(saborDTO.getNome() == null, "Informe o nome");
+        // Assert.isTrue(saborDTO.getItem() == null, "Informe o Item");
 
         Sabor sabor = this.saborRepository.save(toSabor(saborDTO));
 
@@ -29,10 +29,10 @@ public class SaborService {
     public String editar(Long id, SaborDTO saborDTO){
 
         Sabor saborBanco = this.saborRepository.findById(id).orElse(null);
-        Assert.isTrue(saborBanco != null, "sabor nao encontrado");
+        // Assert.isTrue(saborBanco != null, "sabor nao encontrado");
 
-        Assert.isTrue(saborDTO.getNome() == null, "Informe o nome");
-        Assert.isTrue(saborDTO.getItem() == null, "Informe o Item");
+        // Assert.isTrue(saborDTO.getNome() == null, "Informe o nome");
+        // Assert.isTrue(saborDTO.getItem() == null, "Informe o Item");
 
         this.saborRepository.save(saborBanco);
 
@@ -42,7 +42,7 @@ public class SaborService {
     public String deletar(Long id){
         Sabor sabor = this.saborRepository.findById(id).orElse(null);
 
-        Assert.isTrue(sabor != null, "Sabor nao encontrado");
+        // Assert.isTrue(sabor != null, "Sabor nao encontrado");
 
         this.saborRepository.delete(sabor);
 
@@ -69,6 +69,7 @@ public class SaborService {
     public SaborDTO toSaborDTO(Sabor sabor){
         SaborDTO saborDTO = new SaborDTO();
 
+        saborDTO.setId(sabor.getId());
         saborDTO.setNome(sabor.getNome());
         saborDTO.setItem(sabor.getItem());
         saborDTO.setId(sabor.getId());
@@ -79,6 +80,7 @@ public class SaborService {
     public Sabor toSabor(SaborDTO saborDTO){
         Sabor sabor = new Sabor();
 
+        sabor.setId(saborDTO.getId());
         sabor.setItem(saborDTO.getItem());
         sabor.setNome(saborDTO.getNome());
         sabor.setId(saborDTO.getId());

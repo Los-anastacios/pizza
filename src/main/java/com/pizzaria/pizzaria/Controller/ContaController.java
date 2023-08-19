@@ -13,6 +13,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/conta")
 public class ContaController {
 
     @Autowired
@@ -48,8 +50,8 @@ public class ContaController {
         }
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<ContaDTO>> findAllConta(@RequestBody final ContaDTO contaDTO){
+    @GetMapping("/lista")
+    public ResponseEntity<List<ContaDTO>> findAllConta(){
         try {
             return ResponseEntity.ok(contaService.findAllConta());
         }catch (Exception e){

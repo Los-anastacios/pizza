@@ -1,10 +1,12 @@
 package com.pizzaria.pizzaria.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -30,10 +32,11 @@ public class Usuario {
     private String cpf;
 
     @Enumerated(EnumType.STRING)
-    @Column(name ="cargo", length =20, nullable =false)
+    @Column(name ="cargo")
     private Cargo cargo;
 
-    @OneToMany
-    private List<Endereco> enderecos;
+    @OneToMany(mappedBy = "usuario")
+    @JsonManagedReference
+    private List<Endereco> enderecos = new ArrayList<>();
 
 }
