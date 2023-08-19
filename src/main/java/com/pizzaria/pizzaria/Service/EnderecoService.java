@@ -86,7 +86,7 @@ public class EnderecoService {
     public EnderecoDTO toEnderecoDTO(Endereco endereco){
         EnderecoDTO enderecoDTO = new EnderecoDTO();
 
-
+        enderecoDTO.setId(endereco.getId());
         enderecoDTO.setRua(endereco.getRua());
         enderecoDTO.setCep(endereco.getCep());
         enderecoDTO.setBairro(endereco.getBairro());
@@ -99,6 +99,7 @@ public class EnderecoService {
     public Endereco toEndereco(EnderecoDTO enderecoDTO){
         Endereco endereco = new Endereco();
 
+        endereco.setId(enderecoDTO.getId());
         endereco.setRua(enderecoDTO.getRua());
         endereco.setCep(enderecoDTO.getCep());
         endereco.setBairro(enderecoDTO.getBairro());

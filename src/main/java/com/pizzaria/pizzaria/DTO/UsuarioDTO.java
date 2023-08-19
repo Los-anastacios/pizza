@@ -17,7 +17,7 @@ public class UsuarioDTO {
 
     private String telefone;
 
-    private String CPF;
+    private String Cpf;
 
     private List<Endereco> enderecos;
 
@@ -25,11 +25,11 @@ public class UsuarioDTO {
 
     }
 
-    public UsuarioDTO(Long id, String nome, String telefone, String CPF, List<Endereco> enderecos) {
+    public UsuarioDTO(Long id, String nome, String telefone, String Cpf, List<Endereco> enderecos) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
-        this.CPF = CPF;
+        this.Cpf = Cpf;
         this.enderecos = enderecos;
     }
 }

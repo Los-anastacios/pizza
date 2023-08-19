@@ -19,10 +19,10 @@ public class EnderecoController {
     private EnderecoService enderecoService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrar(@RequestBody final EnderecoDTO enderecoDTO){
+    public ResponseEntity<EnderecoDTO> cadastrar(@RequestBody final EnderecoDTO enderecoDTO){
         try {
-            enderecoService.cadastrar(enderecoDTO);
-            return  ResponseEntity.ok("Endereço, cadastrado com sucesso");
+
+            return  ResponseEntity.ok(enderecoService.cadastrar(enderecoDTO));
 
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());

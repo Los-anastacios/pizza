@@ -20,7 +20,7 @@ public class UsuarioService {
 
         Assert.isTrue(usuarioDTO.getNome() ==  null, "Insira um nome!");
         Assert.isTrue(usuarioDTO.getTelefone() == null, "Insira um telefone válido");
-        Assert.isTrue(usuarioDTO.getCPF() == null, "Insira um Cpf válido");
+        Assert.isTrue(usuarioDTO.getCpf() == null, "Insira um Cpf válido");
         Assert.isTrue(usuarioDTO.getEnderecos() == null, "Insira um Endereço válido");
 
         Usuario usuario = this.usuarioRepository.save(toUsuario(usuarioDTO));
@@ -34,12 +34,12 @@ public class UsuarioService {
 
         Assert.isTrue(usuarioDTO.getNome() ==  null, "Insira um nome!");
         Assert.isTrue(usuarioDTO.getTelefone() == null, "Insira um telefone válido");
-        Assert.isTrue(usuarioDTO.getCPF() == null, "Insira um Cpf válido");
+        Assert.isTrue(usuarioDTO.getCpf() == null, "Insira um Cpf válido");
         Assert.isTrue(usuarioDTO.getEnderecos() == null, "Insira um Endereço válido");
 
         usuarioBanco.setNome(usuarioDTO.getNome());
         usuarioBanco.setTelefone(usuarioDTO.getTelefone());
-        usuarioBanco.setCpf(usuarioDTO.getCPF());
+        usuarioBanco.setCpf(usuarioDTO.getCpf());
         usuarioBanco.setEnderecos(usuarioDTO.getEnderecos());
 
         this.usuarioRepository.save(toUsuario(usuarioDTO));
@@ -89,7 +89,7 @@ public class UsuarioService {
         Usuario usuario = new Usuario();
 
         usuario.setId(usuarioDTO.getId());
-        usuario.setCpf(usuarioDTO.getCPF());
+        usuario.setCpf(usuarioDTO.getCpf());
         usuario.setNome(usuarioDTO.getNome());
         usuario.setTelefone(usuarioDTO.getTelefone());
         usuario.setEnderecos(usuarioDTO.getEnderecos());
@@ -101,7 +101,7 @@ public class UsuarioService {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
 
         usuarioDTO.setId(usuario.getId());
-        usuarioDTO.setCPF(usuario.getCpf());
+        usuarioDTO.setCpf(usuario.getCpf());
         usuarioDTO.setNome(usuario.getNome());
         usuarioDTO.setTelefone(usuario.getTelefone());
         usuarioDTO.setEnderecos(usuario.getEnderecos());

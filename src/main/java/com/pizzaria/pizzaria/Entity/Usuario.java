@@ -1,6 +1,7 @@
 package com.pizzaria.pizzaria.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,10 +31,11 @@ public class Usuario {
     private String cpf;
 
     @Enumerated(EnumType.STRING)
-    @Column(name ="cargo", length =20, nullable =false)
+    @Column(name ="cargo")
     private Cargo cargo;
 
-    @OneToMany
+    @OneToMany(mappedBy = "usuario")
+    @JsonManagedReference
     private List<Endereco> enderecos;
 
 }
