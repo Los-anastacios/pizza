@@ -19,22 +19,22 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<PedidoDTO> cadastrar(@RequestBody final PedidoDTO pedidoDTO){
+    public ResponseEntity<?> cadastrar(@RequestBody final PedidoDTO pedidoDTO){
         try {
-            //pedidoService.cadastrar(pedidoDTO);
-            return ResponseEntity.ok(pedidoService.cadastrar(pedidoDTO));
+            //era PedidoDTO<>
+            return ResponseEntity.ok("Pedido Cadastraco com sucesso" + pedidoService.cadastrar(pedidoDTO));
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PostMapping("/editar/{id}")
-    public ResponseEntity<String> editar(@RequestParam("id") Long id, @RequestBody PedidoDTO pedidoDTO){
+    public ResponseEntity<?> editar(@RequestParam("id") Long id, @RequestBody PedidoDTO pedidoDTO){
         try {
-            pedidoService.editar(id,pedidoDTO);
-            return ResponseEntity.ok(pedidoDTO.getNome() + "Alterado com sucesso");
+
+            return ResponseEntity.ok(pedidoService.editar(id, pedidoDTO) + "Alterado com sucesso");
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

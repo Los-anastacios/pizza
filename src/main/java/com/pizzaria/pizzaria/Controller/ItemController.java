@@ -21,22 +21,21 @@ public class ItemController {
     private ItemService itemService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrar(@RequestBody final ItemDTO itemDTO){
+    public ResponseEntity<?> cadastrar(@RequestBody final ItemDTO itemDTO){
         try {
-            itemService.cadastrar(itemDTO);
-            return ResponseEntity.ok("Item, cadastrado com sucesso");
+           // era string<>
+            return ResponseEntity.ok("Item, cadastrado com sucesso" + itemService.cadastrar(itemDTO));
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PostMapping("/editar/{id}")
-    public ResponseEntity<String> editar(@RequestParam("id") Long id, @RequestBody ItemDTO itemDTO){
+    public ResponseEntity<?> editar(@RequestParam("id") Long id, @RequestBody ItemDTO itemDTO){
         try {
-            itemService.editar(id,itemDTO);
-            return ResponseEntity.ok(itemDTO.getIdPedido() + "Alterado com sucesso");
+            return ResponseEntity.ok(itemService.editar(id, itemDTO) + "Alterado com sucesso");
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

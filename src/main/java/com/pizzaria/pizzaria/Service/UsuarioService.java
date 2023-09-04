@@ -16,15 +16,15 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public void cadastrar(UsuarioDTO usuarioDTO){
+    public UsuarioDTO cadastrar(UsuarioDTO usuarioDTO){
 
         //Assert.isTrue(usuarioDTO.getNome() ==  null, "Insira um nome!");
         // Assert.isTrue(usuarioDTO.getTelefone() == null, "Insira um telefone válido");
         // Assert.isTrue(usuarioDTO.getCPF() == null, "Insira um Cpf válido");
         // Assert.isTrue(usuarioDTO.getEnderecos() == null, "Insira um Endereço válido");
 
-        this.usuarioRepository.save(toUsuario(usuarioDTO));
 
+        return toUsuarioDTO(usuarioRepository.save(toUsuario(usuarioDTO)));
     }
 
     public String editar(Long id,UsuarioDTO usuarioDTO){

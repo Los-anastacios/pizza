@@ -6,6 +6,7 @@ import com.pizzaria.pizzaria.Service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,23 +20,24 @@ public class EnderecoController {
     private EnderecoService enderecoService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrar(@RequestBody final EnderecoDTO enderecoDTO){
+    public ResponseEntity<?> cadastrar(@RequestBody @Validated EnderecoDTO enderecoDTO){
         try {
-            enderecoService.cadastrar(enderecoDTO);
-            return  ResponseEntity.ok("Endereço, cadastrado com sucesso");
+            //era string<>
+            return  ResponseEntity.ok("Endereço cadastrado com sucesso" + enderecoService.cadastrar(enderecoDTO));
 
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PutMapping("/editar/{id}")
-    public ResponseEntity<String> editar(@RequestParam("id") Long id, @RequestBody EnderecoDTO enderecoDTO){
+    public ResponseEntity<?> editar(@RequestParam("id") Long id, @RequestBody EnderecoDTO enderecoDTO){
         try{
-            enderecoService.editar(id,enderecoDTO);
-            return ResponseEntity.ok(enderecoDTO.getUsuario() + "Alterado com sucesso");
+
+            return ResponseEntity.ok(enderecoService.editar(id, enderecoDTO) + "Alterado com sucesso");
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            //throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

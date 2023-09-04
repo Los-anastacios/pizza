@@ -17,19 +17,20 @@ public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public EnderecoDTO cadastrar(EnderecoDTO enderecoDTO){
 
-        //Assert.isTrue(enderecoDTO.getRua() == null, "Informe o nome da rua");
+        Assert.notNull(enderecoDTO.getRua(), "Informe o nome da rua");
         //Assert.isTrue(enderecoDTO.getBairro() == null, "informe o bairro");
         //Assert.isTrue(enderecoDTO.getCep() == null, "Informe o Cep");
         //Assert.isTrue(enderecoDTO.getNumero() <= 0, "Informe o numero");
         // Assert.isTrue(enderecoDTO.getComplemento() == null, "Informe o Complemento");
         // Assert.isTrue(enderecoDTO.getUsuario() == null, "Informe o Usuario");
 
-        Endereco endereco = this.enderecoRepository.save(toEndereco(enderecoDTO));
+        //Endereco endereco = this.enderecoRepository.save(toEndereco(enderecoDTO));
+        //return toEnderecoDTO(endereco);
 
-        return toEnderecoDTO(endereco);
+        return toEnderecoDTO(enderecoRepository.save(toEndereco(enderecoDTO)));
     }
 
     @Transactional(rollbackFor = Exception.class)

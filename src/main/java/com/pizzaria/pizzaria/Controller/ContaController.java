@@ -21,22 +21,22 @@ public class ContaController {
     private ContaService contaService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrar(@RequestBody final ContaDTO contaDTO){
+    public ResponseEntity<?> cadastrar(@RequestBody final ContaDTO contaDTO){
         try {
-            contaService.cadastrar(contaDTO);
-            return ResponseEntity.ok("Conta, cadastrado com sucesso");
+            //era string<>
+            return ResponseEntity.ok("Conta, cadastrado com sucesso" + contaService.cadastrar(contaDTO));
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PostMapping("/editar/{id}")
-    public ResponseEntity<String> editar(@RequestParam("id") Long id, @RequestBody ContaDTO contaDTO){
+    public ResponseEntity<?> editar(@RequestParam("id") Long id, @RequestBody ContaDTO contaDTO){
         try {
-            contaService.editar(id,contaDTO);
-            return ResponseEntity.ok(contaDTO.getId() + "Alterado com sucesso");
+
+            return ResponseEntity.ok(contaService.editar(id, contaDTO)+ "Alterado com sucesso");
         }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
