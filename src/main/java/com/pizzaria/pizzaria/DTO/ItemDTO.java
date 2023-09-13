@@ -1,5 +1,6 @@
 package com.pizzaria.pizzaria.DTO;
 
+import com.pizzaria.pizzaria.Entity.Enums.Tamanho;
 import com.pizzaria.pizzaria.Entity.Pedido;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,20 +11,18 @@ public class ItemDTO {
 
     private Long id;
 
-    private String tamanho;
+    private Tamanho tamanho;
 
-    private Boolean entrega;
+    private String nome;
 
-    private Pedido idPedido;
 
     public ItemDTO(){
 
     }
 
-    public ItemDTO(Long id,String tamanho, Boolean entrega, Pedido idPedido) {
+    public ItemDTO(Long id,Tamanho tamanho, String nome) {
         this.id = id;
         this.tamanho = tamanho;
-        this.entrega = entrega;
-        this.idPedido = idPedido;
+        this.nome = nome;
     }
 }

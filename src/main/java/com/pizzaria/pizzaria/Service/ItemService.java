@@ -20,7 +20,7 @@ public class ItemService {
     @Transactional(rollbackFor = Exception.class)
     public ItemDTO cadastrar(final ItemDTO itemDTO){
 
-        // Assert.isTrue(itemDTO.getIdPedido() == null, "Insira um Pedido");
+        // itemBanco.setNome(itemDTO.getNome());
         // Assert.isTrue(itemDTO.getTamanho() == null, "Insira um tamanho valido");
 
         Item item = this.itemRepository.save(toItem(itemDTO));
@@ -36,12 +36,12 @@ public class ItemService {
         // Assert.isTrue(itemDTO.getIdPedido() == null, "Insira um Pedido");
         // Assert.isTrue(itemDTO.getTamanho() == null, "Insira um tamanho valido");
 
-        itemBanco.setIdPedido(itemDTO.getIdPedido());
+        itemBanco.setNome(itemDTO.getNome());
         itemBanco.setTamanho(itemDTO.getTamanho());
 
         this.itemRepository.save(itemBanco);
 
-        return itemDTO.getIdPedido() + ": editado com sucesso";
+        return itemDTO + ": editado com sucesso";
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -77,9 +77,7 @@ public class ItemService {
         ItemDTO itemDTO = new ItemDTO();
 
         itemDTO.setId(item.getId());
-        itemDTO.setEntrega(item.getEntrega());
         itemDTO.setTamanho(item.getTamanho());
-        itemDTO.setIdPedido(item.getIdPedido());
 
         return itemDTO;
     }
@@ -88,9 +86,7 @@ public class ItemService {
         Item item = new Item();
 
         item.setId(itemDTO.getId());
-        item.setEntrega(itemDTO.getEntrega());
         item.setTamanho(itemDTO.getTamanho());
-        item.setIdPedido(itemDTO.getIdPedido());
 
         return item;
     }

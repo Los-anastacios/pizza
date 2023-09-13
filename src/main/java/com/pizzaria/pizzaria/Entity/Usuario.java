@@ -2,6 +2,7 @@ package com.pizzaria.pizzaria.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.pizzaria.pizzaria.Entity.Enums.Cargo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,11 +13,10 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Usuario {
+public class Usuario extends AbstractEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @OneToOne(mappedBy = "usuario")

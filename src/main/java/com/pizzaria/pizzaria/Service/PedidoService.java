@@ -38,7 +38,6 @@ public class PedidoService {
         // Assert.isTrue(pedidoDTO.getNome() == null, "Informe o nome do Pedido");
         // Assert.isTrue(pedidoDTO.getEstado() == null, "Informe o Estado");
 
-        pedidoBanco.setNome(pedidoDTO.getNome());
         pedidoBanco.setObs(pedidoDTO.getObs());
         pedidoBanco.setIdUsuario(pedidoDTO.getIdUsuario());
         pedidoBanco.setEstado(pedidoDTO.getEstado());
@@ -80,7 +79,6 @@ public class PedidoService {
         PedidoDTO pedidoDTO = new PedidoDTO();
 
         pedidoDTO.setId(pedido.getId());
-        pedidoDTO.setNome(pedido.getNome());
         pedidoDTO.setObs(pedido.getObs());
         pedidoDTO.setIdUsuario(pedido.getIdUsuario());
         pedidoDTO.setEstado(pedido.getEstado());
@@ -92,7 +90,6 @@ public class PedidoService {
         Pedido pedido = new Pedido();
 
         pedido.setId(pedidoDTO.getId());
-        pedido.setNome(pedidoDTO.getNome());
         pedido.setObs(pedidoDTO.getObs());
         pedido.setIdUsuario(pedidoDTO.getIdUsuario());
         pedido.setEstado(pedidoDTO.getEstado());

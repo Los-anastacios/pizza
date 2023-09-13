@@ -8,11 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Endereco {
+public class Endereco extends AbstractEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "rua")

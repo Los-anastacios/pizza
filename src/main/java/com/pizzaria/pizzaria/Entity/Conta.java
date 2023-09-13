@@ -7,11 +7,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Conta {
+public class Conta extends AbstractEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "email")

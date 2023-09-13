@@ -1,4 +1,4 @@
-package com.pizzaria.pizzaria.Entity;
+package com.pizzaria.pizzaria.Entity.Enums;
 
 public enum Cargo {
     CLIENTE,
