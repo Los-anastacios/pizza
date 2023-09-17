@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Conta extends AbstractEntity {
-
+//ADICIONANDO COISA NOVA AI NO SONAR
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

@@ -5,7 +5,6 @@ import com.pizzaria.pizzaria.Repository.PedidoRepository;
 import com.pizzaria.pizzaria.Entity.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;

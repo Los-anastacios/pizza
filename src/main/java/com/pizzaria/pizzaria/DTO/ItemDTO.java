@@ -1,7 +1,6 @@
 package com.pizzaria.pizzaria.DTO;
 
 import com.pizzaria.pizzaria.Entity.Enums.Tamanho;
-import com.pizzaria.pizzaria.Entity.Pedido;
 import lombok.Getter;
 import lombok.Setter;
 

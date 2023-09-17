@@ -1,6 +1,5 @@
 package com.pizzaria.pizzaria.Controller;
 
-import com.pizzaria.pizzaria.DTO.EnderecoDTO;
 import com.pizzaria.pizzaria.DTO.UsuarioDTO;
 import com.pizzaria.pizzaria.Service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;

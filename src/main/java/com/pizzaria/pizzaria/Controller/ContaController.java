@@ -1,10 +1,7 @@
 package com.pizzaria.pizzaria.Controller;
 
 import com.pizzaria.pizzaria.DTO.ContaDTO;
-import com.pizzaria.pizzaria.DTO.PedidoDTO;
-import com.pizzaria.pizzaria.DTO.SaborDTO;
 import com.pizzaria.pizzaria.Service.ContaService;
-import com.pizzaria.pizzaria.Service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

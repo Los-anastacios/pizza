@@ -1,7 +1,6 @@
 package com.pizzaria.pizzaria.Controller;
 
 import com.pizzaria.pizzaria.DTO.EnderecoDTO;
-import com.pizzaria.pizzaria.Entity.Endereco;
 import com.pizzaria.pizzaria.Service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

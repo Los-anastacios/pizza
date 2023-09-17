@@ -1,9 +1,7 @@
 package com.pizzaria.pizzaria.Controller;
 
 import com.pizzaria.pizzaria.DTO.SaborDTO;
-import com.pizzaria.pizzaria.DTO.UsuarioDTO;
 import com.pizzaria.pizzaria.Service.SaborService;
-import com.pizzaria.pizzaria.Service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
