@@ -6,6 +6,7 @@ import com.pizzaria.pizzaria.Repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,24 +20,15 @@ public class ItemService {
     @Transactional(rollbackFor = Exception.class)
     public ItemDTO cadastrar(final ItemDTO itemDTO){
 
-        // itemBanco.setNome(itemDTO.getNome());
-        // Assert.isTrue(itemDTO.getTamanho() == null, "Insira um tamanho valido");
 
-        Item item = this.itemRepository.save(toItem(itemDTO));
-
-        return toItemDTO(item);
+        return toItemDTO(itemRepository.save(toItem(itemDTO)));
     }
 
     @Transactional(rollbackFor = Exception.class)
     public String editar(final Long id, final  ItemDTO itemDTO){
 
         final Item itemBanco = this.itemRepository.findById(id).orElse(null);
-
-        // Assert.isTrue(itemDTO.getIdPedido() == null, "Insira um Pedido");
-        // Assert.isTrue(itemDTO.getTamanho() == null, "Insira um tamanho valido");
-
-        itemBanco.setNome(itemDTO.getNome());
-        itemBanco.setTamanho(itemDTO.getTamanho());
+        Assert.isTrue(itemBanco != null, "Item nao encontrado");
 
         this.itemRepository.save(itemBanco);
 
@@ -47,7 +39,7 @@ public class ItemService {
     public String deletar(final Long id){
 
         final Item itemBanco = this.itemRepository.findById(id).orElse(null);
-        //  Assert.isTrue(itemBanco != null, "Registro nao encontrado");
+        Assert.isTrue(itemBanco != null, "item nao encontrado");
 
         this.itemRepository.delete(itemBanco);
 
@@ -56,19 +48,16 @@ public class ItemService {
     }
 
     public List<ItemDTO> findAllItem(){
-        List<Item> itemBanco = itemRepository.findAll();
-        List<ItemDTO> itemDTOBanco = new ArrayList<>();
 
-        for (int i=0; i<itemBanco.size();i++){
-            itemDTOBanco.add(toItemDTO(itemBanco.get(i)));
-        }
-        return itemDTOBanco;
+        return  itemRepository.findAll().stream().map(this::toItemDTO).toList();
     }
 
-    public ItemDTO findByID(Long id){
+    public ItemDTO findById(Long id){
+
+         Assert.isTrue(id != null, "Item Inválido");
 
         Item itemBanco = this.itemRepository.findById(id).orElse(null);
-        // Assert.isTrue(itemBanco != null, "Item Inválido");
+
         return toItemDTO(itemBanco);
     }
 
@@ -76,7 +65,9 @@ public class ItemService {
         ItemDTO itemDTO = new ItemDTO();
 
         itemDTO.setId(item.getId());
+        itemDTO.setNome(item.getNome());
         itemDTO.setTamanho(item.getTamanho());
+        itemDTO.setSabor(item.getSabor());
 
         return itemDTO;
     }
@@ -85,7 +76,9 @@ public class ItemService {
         Item item = new Item();
 
         item.setId(itemDTO.getId());
+        item.setNome(itemDTO.getNome());
         item.setTamanho(itemDTO.getTamanho());
+        item.setSabor(itemDTO.getSabor());
 
         return item;
     }

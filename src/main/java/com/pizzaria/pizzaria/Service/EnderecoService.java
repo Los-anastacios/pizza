@@ -25,7 +25,7 @@ public class EnderecoService {
         //Assert.isTrue(enderecoDTO.getCep() == null, "Informe o Cep");
         //Assert.isTrue(enderecoDTO.getNumero() <= 0, "Informe o numero");
         // Assert.isTrue(enderecoDTO.getComplemento() == null, "Informe o Complemento");
-        // Assert.isTrue(enderecoDTO.getUsuario() == null, "Informe o Usuario");
+        // Assert.isTrue(enderecoDTO.getCliente() == null, "Informe o Cliente");
 
         //Endereco endereco = this.enderecoRepository.save(toEndereco(enderecoDTO));
         //return toEnderecoDTO(endereco);
@@ -44,7 +44,7 @@ public class EnderecoService {
         //Assert.isTrue(enderecoDTO.getCep() == null, "Informe o Cep");
         //Assert.isTrue(enderecoDTO.getNumero() <= 0, "Informe o numero");
         //Assert.isTrue(enderecoDTO.getComplemento() == null, "Informe o Complemento");
-        //Assert.isTrue(enderecoDTO.getUsuario() == null, "Informe o Usuario");
+        //Assert.isTrue(enderecoDTO.getCliente() == null, "Informe o Cliente");
 
         enderecoBanco.setId(enderecoDTO.getId());
         enderecoBanco.setRua(enderecoDTO.getRua());
@@ -95,7 +95,6 @@ public class EnderecoService {
         enderecoDTO.setBairro(endereco.getBairro());
         enderecoDTO.setComplemento(endereco.getComplemento());
         enderecoDTO.setNumero(endereco.getNumero());
-        enderecoDTO.setUsuario(endereco.getUsuario());
 
         return enderecoDTO;
     }
@@ -109,7 +108,6 @@ public class EnderecoService {
         endereco.setBairro(enderecoDTO.getBairro());
         endereco.setComplemento(enderecoDTO.getComplemento());
         endereco.setNumero(enderecoDTO.getNumero());
-        endereco.setUsuario(enderecoDTO.getUsuario());
 
         return endereco;
     }

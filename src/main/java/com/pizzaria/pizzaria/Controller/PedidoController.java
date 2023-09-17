@@ -17,9 +17,8 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrar(@RequestBody final PedidoDTO pedidoDTO){
+    public ResponseEntity<String> cadastrar(@RequestBody final PedidoDTO pedidoDTO){
         try {
-            //era PedidoDTO<>
             return ResponseEntity.ok("Pedido Cadastraco com sucesso" + pedidoService.cadastrar(pedidoDTO));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -27,9 +26,8 @@ public class PedidoController {
     }
 
     @PostMapping("/editar/{id}")
-    public ResponseEntity<?> editar(@RequestParam("id") Long id, @RequestBody PedidoDTO pedidoDTO){
+    public ResponseEntity<String> editar(@PathVariable("id") Long id, @RequestBody PedidoDTO pedidoDTO){
         try {
-
             return ResponseEntity.ok(pedidoService.editar(id, pedidoDTO) + "Alterado com sucesso");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -37,7 +35,7 @@ public class PedidoController {
     }
 
     @DeleteMapping("/deleta/{id}")
-    public ResponseEntity<String> deleta(@RequestParam("id") Long id){
+    public ResponseEntity<String> deleta(@PathVariable("id") Long id){
         try {
             pedidoService.deletar(id);
             return ResponseEntity.ok("Deletado com sucesso");
@@ -48,8 +46,13 @@ public class PedidoController {
 
     @GetMapping("/lista")
     public ResponseEntity<List<PedidoDTO>> findAllPedido(){
+       return  ResponseEntity.ok(pedidoService.findAllPedido());
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<PedidoDTO> findById(@PathVariable("id") Long id){
         try {
-            return ResponseEntity.ok(pedidoService.findAllPedido());
+            return ResponseEntity.ok(this.pedidoService.findById(id));
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

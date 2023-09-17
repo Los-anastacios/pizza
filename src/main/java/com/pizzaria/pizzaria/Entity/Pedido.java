@@ -2,7 +2,9 @@ package com.pizzaria.pizzaria.Entity;
 
 import com.pizzaria.pizzaria.Entity.Enums.Estado;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Pedido extends AbstractEntity{
 
     @Id
@@ -21,7 +25,11 @@ public class Pedido extends AbstractEntity{
 
     @ManyToOne
     @JoinColumn(name = "idCliente")
-    private Usuario idUsuario;
+    private Cliente idCliente;
+
+    @ManyToOne
+    @JoinColumn(name = "idFuncionario")
+    private Funcionario idFuncionario;
 
     @Column(name = "entrega")
     private Boolean entrega;

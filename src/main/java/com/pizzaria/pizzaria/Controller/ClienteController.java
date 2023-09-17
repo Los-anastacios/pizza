@@ -1,7 +1,7 @@
 package com.pizzaria.pizzaria.Controller;
 
-import com.pizzaria.pizzaria.DTO.ItemDTO;
-import com.pizzaria.pizzaria.Service.ItemService;
+import com.pizzaria.pizzaria.DTO.ClienteDTO;
+import com.pizzaria.pizzaria.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,25 +11,25 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/item")
-public class ItemController {
+@RequestMapping("/cliente")
+public class ClienteController {
 
     @Autowired
-    private ItemService itemService;
+    private ClienteService clienteService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrar(@RequestBody final ItemDTO itemDTO){
+    public ResponseEntity<String> cadastrar(@RequestBody final ClienteDTO clienteDTO){
         try {
-            return ResponseEntity.ok("Item, cadastrado com sucesso" + itemService.cadastrar(itemDTO));
+            return ResponseEntity.ok("Cliente Cadastrado com sucesso: " + clienteService.cadastrar(clienteDTO));
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
     @PostMapping("/editar/{id}")
-    public ResponseEntity<?> editar(@PathVariable("id") Long id, @RequestBody ItemDTO itemDTO){
+    public ResponseEntity<String> editar(@PathVariable("id") Long id, @RequestBody ClienteDTO clienteDTO){
         try {
-            return ResponseEntity.ok(itemService.editar(id, itemDTO) + "Alterado com sucesso");
+            return ResponseEntity.ok(clienteService.editar(id, clienteDTO) + "Alterado com sucesso");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -38,7 +38,7 @@ public class ItemController {
     @DeleteMapping("/deleta/{id}")
     public ResponseEntity<String> deleta(@PathVariable("id") Long id){
         try {
-            itemService.deletar(id);
+            clienteService.deletar(id);
             return ResponseEntity.ok("Deletado com sucesso");
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -46,17 +46,18 @@ public class ItemController {
     }
 
     @GetMapping("/lista")
-    public ResponseEntity<List<ItemDTO>> findAllItem(){
-       return ResponseEntity.ok(itemService.findAllItem());
+    public ResponseEntity<List<ClienteDTO>> findAllUsuario(){
+        return  ResponseEntity.ok(clienteService.findAllUsuario());
     }
 
-    @GetMapping
-    public ResponseEntity<ItemDTO> findById(@PathVariable("id") Long id){
+    @GetMapping("/id/{id}")
+    public ResponseEntity<ClienteDTO> findById(@PathVariable("id") Long id){
         try {
-            return ResponseEntity.ok(this.itemService.findById(id));
+            return ResponseEntity.ok(this.clienteService.findById(id));
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
 
 }

@@ -21,7 +21,6 @@ public class EnderecoController {
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastrar(@RequestBody @Validated EnderecoDTO enderecoDTO){
         try {
-            //era string<>
             return  ResponseEntity.ok("Endereço cadastrado com sucesso" + enderecoService.cadastrar(enderecoDTO));
 
         }catch (Exception e){
@@ -30,18 +29,16 @@ public class EnderecoController {
     }
 
     @PutMapping("/editar/{id}")
-    public ResponseEntity<?> editar(@RequestParam("id") Long id, @RequestBody EnderecoDTO enderecoDTO){
+    public ResponseEntity<?> editar(@PathVariable("id") Long id, @RequestBody EnderecoDTO enderecoDTO){
         try{
-
             return ResponseEntity.ok(enderecoService.editar(id, enderecoDTO) + "Alterado com sucesso");
         }catch (Exception e){
-            //throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @DeleteMapping("/deleta/{id}")
-    public ResponseEntity<String> deleta(@RequestParam("id") Long id){
+    public ResponseEntity<String> deleta(@PathVariable("id") Long id){
         try {
             enderecoService.deletar(id);
             return ResponseEntity.ok("Deletado com sucesso");
@@ -52,11 +49,7 @@ public class EnderecoController {
 
     @GetMapping("/lista")
     public ResponseEntity<List<EnderecoDTO>> findAllEndereco(){
-        try {
-            return ResponseEntity.ok(enderecoService.findAllEndereco());
-        }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+      return  ResponseEntity.ok(enderecoService.findAllEndereco());
     }
 
     @GetMapping("/id/{id}")

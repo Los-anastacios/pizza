@@ -1,16 +1,21 @@
 package com.pizzaria.pizzaria.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "Conta", schema = "public")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Conta extends AbstractEntity {
-//ADICIONANDO COISA NOVA AI NO SONAR
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_conta")
     private Long id;
 
     @Column(name = "email")
@@ -19,7 +24,4 @@ public class Conta extends AbstractEntity {
     @Column(name = "senha")
     private String senha;
 
-    @OneToOne
-    @JoinColumn(name = "idUsuario", referencedColumnName = "id")
-    private Usuario usuario;
 }

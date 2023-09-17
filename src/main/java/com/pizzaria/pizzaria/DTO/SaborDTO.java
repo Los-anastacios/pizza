@@ -14,15 +14,12 @@ public class SaborDTO {
 
     private String nome;
 
-    private List<Item> item;
-
     public SaborDTO(){
 
     }
 
-    public SaborDTO(Long id, String nome, List<Item> item) {
+    public SaborDTO(Long id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.item = item;
     }
 }

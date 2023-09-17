@@ -1,7 +1,7 @@
 package com.pizzaria.pizzaria.Controller;
 
-import com.pizzaria.pizzaria.DTO.SaborDTO;
-import com.pizzaria.pizzaria.Service.SaborService;
+import com.pizzaria.pizzaria.DTO.FuncionarioDTO;
+import com.pizzaria.pizzaria.Service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,26 +11,26 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/sabor")
-public class SaborController {
+@RequestMapping("/funcionario")
+public class FuncioanrioController {
 
     @Autowired
-    private SaborService saborService;
+    private FuncionarioService funcionarioService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrar(@RequestBody final SaborDTO saborDTO){
+    public ResponseEntity<String> cadastrar(@RequestBody final FuncionarioDTO funcionarioDTO){
         try {
-            return ResponseEntity.ok("Sabor, cadastrado com sucesso" + saborService.cadastrar(saborDTO));
+            // era string<>
+            return ResponseEntity.ok("Cliente Cadastrado com sucesso: " + funcionarioService.cadastrar(funcionarioDTO));
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
     @PostMapping("/editar/{id}")
-    public ResponseEntity<String> editar(@PathVariable("id") Long id, @RequestBody SaborDTO saborDTO){
+    public ResponseEntity<String> editar(@PathVariable("id") Long id, @RequestBody FuncionarioDTO funcionarioDTO){
         try {
-            saborService.editar(id,saborDTO);
-            return ResponseEntity.ok(saborService.editar(id,saborDTO) + "Alterado com sucesso");
+            return ResponseEntity.ok(funcionarioService.editar(id, funcionarioDTO) + "Alterado com sucesso");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -39,7 +39,7 @@ public class SaborController {
     @DeleteMapping("/deleta/{id}")
     public ResponseEntity<String> deleta(@PathVariable("id") Long id){
         try {
-            saborService.deletar(id);
+            funcionarioService.deletar(id);
             return ResponseEntity.ok("Deletado com sucesso");
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -47,14 +47,14 @@ public class SaborController {
     }
 
     @GetMapping("/lista")
-    public ResponseEntity<List<SaborDTO>> findAllSabor(){
-        return  ResponseEntity.ok(saborService.findAllSabor());
+    public ResponseEntity<List<FuncionarioDTO>> findAllUsuario(){
+        return  ResponseEntity.ok(funcionarioService.findAllFuncionario());
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<SaborDTO> findById(@PathVariable("id") Long id){
+    public ResponseEntity<FuncionarioDTO> findById(@PathVariable("id") Long id){
         try {
-            return ResponseEntity.ok(this.saborService.findById(id));
+            return ResponseEntity.ok(this.funcionarioService.findById(id));
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

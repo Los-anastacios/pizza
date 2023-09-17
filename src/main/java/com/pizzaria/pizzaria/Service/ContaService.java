@@ -3,6 +3,7 @@ package com.pizzaria.pizzaria.Service;
 import com.pizzaria.pizzaria.DTO.ContaDTO;
 import com.pizzaria.pizzaria.Entity.Conta;
 import com.pizzaria.pizzaria.Repository.ContaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -19,6 +20,9 @@ public class ContaService {
     public ContaDTO cadastrar(ContaDTO contaDTO){
 
         Conta conta = contaRepository.save(toConta(contaDTO));
+
+        Assert.isTrue(contaDTO.getEmail() != null,"INSIRA UM EMAIL");
+        Assert.isTrue(contaDTO.getSenha() != null, "INSIRA UMA SENHA");
         return toContaDTO(conta);
     }
 
@@ -28,7 +32,6 @@ public class ContaService {
         conta.setId(contaDTO.getId());
         conta.setEmail(contaDTO.getEmail());
         conta.setSenha(contaDTO.getSenha());
-        conta.setUsuario(contaDTO.getUsuario());
 
         return conta;
     }
@@ -39,40 +42,35 @@ public class ContaService {
         contaDTO.setId(conta.getId());
         contaDTO.setEmail(conta.getEmail());
         contaDTO.setSenha(conta.getSenha());
-        contaDTO.setUsuario(conta.getUsuario());
 
         return contaDTO;
     }
 
     public String editar(Long id, ContaDTO contaDTO){
-        Conta conta = this.contaRepository.findById(id).orElse(null);
 
+        Conta conta = this.contaRepository.findById(id).orElse(null);
         Assert.isTrue(conta != null, "conta nao encontrado");
-        //fazer verificacoes
 
         this.contaRepository.save(toConta(contaDTO));
 
-        return contaDTO.getId() + " editado";
+        return contaDTO.getId() + " editado com sucesso";
     }
 
     public String deletar(Long id){
+
         Conta contaBanco = contaRepository.findById(id).orElse(null);
 
         Assert.isTrue(contaBanco != null, "Conta nao encontrado");
         contaRepository.delete(contaBanco);
 
-        return "conta deletado";
+        return "conta deletada com sucesso";
     }
 
-    public List<ContaDTO> findAllConta(){
-        List<Conta> contaBanco = contaRepository.findAll();
-        List<ContaDTO> contaDTOBanco = new ArrayList<>();
+    public ContaDTO findById(Long id){
 
-        for (int i=0; i< contaBanco.size();i++){
-            contaDTOBanco.add(toContaDTO(contaBanco.get(i)));
-        }
+        Assert.isTrue(id != null, "ID INVALIDO");
+        Conta contaBanco = this.contaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado!"));
 
-        return  contaDTOBanco;
+        return  toContaDTO(contaBanco);
     }
-
 }

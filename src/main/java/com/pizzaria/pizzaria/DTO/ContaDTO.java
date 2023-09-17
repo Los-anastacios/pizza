@@ -1,6 +1,6 @@
 package com.pizzaria.pizzaria.DTO;
 
-import com.pizzaria.pizzaria.Entity.Usuario;
+import com.pizzaria.pizzaria.Entity.Cliente;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,16 +13,16 @@ public class ContaDTO {
 
     private String senha;
 
-    private Usuario usuario;
+    private Cliente cliente;
 
     public ContaDTO(){
 
     }
 
-    public ContaDTO(Long id, String email, String senha, Usuario usuario) {
+    public ContaDTO(Long id, String email, String senha, Cliente cliente) {
         this.id = id;
         this.email = email;
         this.senha = senha;
-        this.usuario = usuario;
+        this.cliente = cliente;
     }
 }

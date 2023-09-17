@@ -18,7 +18,7 @@ public class PedidoService {
 
     public PedidoDTO cadastrar(PedidoDTO pedidoDTO){
 
-        // Assert.isTrue(pedidoDTO.getIdUsuario() == null, "Informe o Cliente");
+        // Assert.isTrue(pedidoDTO.getIdCliente() == null, "Informe o Cliente");
         // Assert.isTrue(pedidoDTO.getNome() == null, "Informe o nome do Pedido");
         // Assert.isTrue(pedidoDTO.getEstado() == null, "Informe o Estado");
 
@@ -33,12 +33,12 @@ public class PedidoService {
         Pedido pedidoBanco = this.pedidoRepository.findById(id).orElse(null);
         //  Assert.isTrue(pedidoBanco != null, "Pedido nao encontrado");
 
-        // Assert.isTrue(pedidoDTO.getIdUsuario() == null, "Informe o Cliente");
+        // Assert.isTrue(pedidoDTO.getIdCliente() == null, "Informe o Cliente");
         // Assert.isTrue(pedidoDTO.getNome() == null, "Informe o nome do Pedido");
         // Assert.isTrue(pedidoDTO.getEstado() == null, "Informe o Estado");
 
         pedidoBanco.setObs(pedidoDTO.getObs());
-        pedidoBanco.setIdUsuario(pedidoDTO.getIdUsuario());
+        pedidoBanco.setIdCliente(pedidoDTO.getIdCliente());
         pedidoBanco.setEstado(pedidoDTO.getEstado());
 
         this.pedidoRepository.save(pedidoBanco);
@@ -79,7 +79,7 @@ public class PedidoService {
 
         pedidoDTO.setId(pedido.getId());
         pedidoDTO.setObs(pedido.getObs());
-        pedidoDTO.setIdUsuario(pedido.getIdUsuario());
+        pedidoDTO.setIdCliente(pedido.getIdCliente());
         pedidoDTO.setEstado(pedido.getEstado());
 
         return pedidoDTO;
@@ -90,7 +90,7 @@ public class PedidoService {
 
         pedido.setId(pedidoDTO.getId());
         pedido.setObs(pedidoDTO.getObs());
-        pedido.setIdUsuario(pedidoDTO.getIdUsuario());
+        pedido.setIdCliente(pedidoDTO.getIdCliente());
         pedido.setEstado(pedidoDTO.getEstado());
 
         return pedido;

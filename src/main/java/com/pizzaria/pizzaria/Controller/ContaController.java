@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/conta")
@@ -20,7 +19,6 @@ public class ContaController {
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastrar(@RequestBody final ContaDTO contaDTO){
         try {
-            //era string<>
             return ResponseEntity.ok("Conta, cadastrado com sucesso" + contaService.cadastrar(contaDTO));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -28,7 +26,7 @@ public class ContaController {
     }
 
     @PostMapping("/editar/{id}")
-    public ResponseEntity<?> editar(@RequestParam("id") Long id, @RequestBody ContaDTO contaDTO){
+    public ResponseEntity<?> editar(@PathVariable("id") Long id, @RequestBody ContaDTO contaDTO){
         try {
 
             return ResponseEntity.ok(contaService.editar(id, contaDTO)+ "Alterado com sucesso");
@@ -38,7 +36,7 @@ public class ContaController {
     }
 
     @DeleteMapping("/deleta/{id}")
-    public ResponseEntity<String> deleta(@RequestParam("id") Long id){
+    public ResponseEntity<String> deleta(@PathVariable("id") Long id){
         try {
             contaService.deletar(id);
             return ResponseEntity.ok("Deletado com sucesso");
@@ -47,10 +45,10 @@ public class ContaController {
         }
     }
 
-    @GetMapping("/lista")
-    public ResponseEntity<List<ContaDTO>> findAllConta(){
+    @GetMapping("/id/{id}")
+    public ResponseEntity<ContaDTO> findById(@PathVariable("id") Long id){
         try {
-            return ResponseEntity.ok(contaService.findAllConta());
+            return ResponseEntity.ok(this.contaService.findById(id));
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
