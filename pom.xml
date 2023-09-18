@@ -15,21 +15,21 @@
 	<name>pizzaria</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-
 		<java.version>17</java.version>
-		<sonar.projectKey>sonarPizzaria</sonar.projectKey>
+		<jacoco.version>0.8.10</jacoco.version>
+		<sonar.token>sqb_785b43901a9e90175bef64883c97d318e95fa9e8</sonar.token>
 		<sonar.projectName>sonarPizzaria</sonar.projectName>
+		<sonar.projectKey>sonarPizzaria</sonar.projectKey>
 		<sonar.host.url>http://localhost:9000</sonar.host.url>
 		<sonar.login>admin</sonar.login>
 		<sonar.password>1010</sonar.password>
-
-		<jacoco.version>0.8.10</jacoco.version>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 		<sonar.language>java</sonar.language>
 
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -91,7 +91,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.10</version>
+				<version>${jacoco.version}</version>
 				<executions>
 					<execution>
 						<id>jacoco-initialize</id>
