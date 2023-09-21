@@ -48,7 +48,13 @@ public class ClienteController {
 
     @GetMapping("/lista")
     public ResponseEntity<List<ClienteDTO>> findAllUsuario(){
-        return  ResponseEntity.ok(clienteService.findAllUsuario());
+
+        try {
+            return  ResponseEntity.ok(clienteService.findAllUsuario());
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+        }
+
     }
 
     @GetMapping("/id/{id}")

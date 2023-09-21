@@ -6,6 +6,7 @@ import com.pizzaria.pizzaria.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -45,7 +46,6 @@ public class FuncionarioService {
     }
 
     public List<FuncionarioDTO> findAllFuncionario(){
-
         return funcionarioRepository.findAll().stream().map(this::toFuncionarioDTO).toList();
     }
 

@@ -47,7 +47,11 @@ public class ItemController {
 
     @GetMapping("/lista")
     public ResponseEntity<List<ItemDTO>> findAllItem(){
-       return ResponseEntity.ok(itemService.findAllItem());
+        try {
+            return ResponseEntity.ok(itemService.findAllItem());
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+        }
     }
 
     @GetMapping("/id/{id}")

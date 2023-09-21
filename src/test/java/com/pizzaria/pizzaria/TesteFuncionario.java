@@ -19,6 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -37,8 +39,12 @@ class TesteFuncionario {
 
         Funcionario funcionario = new Funcionario(1L, "Emilio", "303.303.303-30", conta);
 
+        List<Funcionario> funcionarios = new ArrayList<>();
+        funcionarios.add(funcionario);
+
         Mockito.when(funcionarioRepository.save(funcionario)).thenReturn(funcionario);
         Mockito.when(funcionarioRepository.findById(1L)).thenReturn(Optional.of(funcionario));
+        Mockito.when(funcionarioRepository.findAll()).thenReturn(funcionarios);
     }
 
     @Test
@@ -99,5 +105,12 @@ class TesteFuncionario {
     void erroFindIdTeste(){
         final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->funcioanrioController.findById(null));
         Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
+    }
+
+    @Test
+    void findAllTeste(){
+        List<FuncionarioDTO> funcionarios = funcioanrioController.findAllUsuario().getBody();
+        Assert.assertEquals(HttpStatus.OK,funcioanrioController.findAllUsuario().getStatusCode());
+        Assert.assertEquals(1,funcionarios.size());
     }
 }

@@ -19,6 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -37,8 +39,12 @@ class TesteEndereco {
 
         Endereco endereco = new Endereco(1L,"rua",10,"bairro","cep","complemento",clientes);
 
+        List<Endereco> enderecos = new ArrayList<>();
+        enderecos.add(endereco);
+
         Mockito.when(enderecoRepository.save(endereco)).thenReturn(endereco);
         Mockito.when(enderecoRepository.findById(1L)).thenReturn(Optional.of(endereco));
+        Mockito.when(enderecoRepository.findAll()).thenReturn(enderecos);
     }
 
     @Test
@@ -97,6 +103,13 @@ class TesteEndereco {
     void erroFindIdTeste(){
         final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->enderecoController.findById(null));
         Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
+    }
+
+    @Test
+    void findAllTeste(){
+        List<EnderecoDTO> enderecos = enderecoController.findAllEndereco().getBody();
+        Assert.assertEquals(HttpStatus.OK,enderecoController.findAllEndereco().getStatusCode());
+        Assert.assertEquals(1,enderecos.size());
     }
 
 }

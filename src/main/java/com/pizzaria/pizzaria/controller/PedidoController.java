@@ -46,11 +46,10 @@ public class PedidoController {
 
     @GetMapping("/lista")
     public ResponseEntity<List<PedidoDTO>> findAllPedido(){
-
        try {
            return  ResponseEntity.ok(pedidoService.findAllPedido());
        }catch (Exception e){
-           throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+           throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
        }
     }
 

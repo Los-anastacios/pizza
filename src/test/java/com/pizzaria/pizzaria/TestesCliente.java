@@ -2,6 +2,7 @@ package com.pizzaria.pizzaria;
 
 import com.pizzaria.pizzaria.controller.ClienteController;
 import com.pizzaria.pizzaria.dto.ClienteDTO;
+import com.pizzaria.pizzaria.dto.EnderecoDTO;
 import com.pizzaria.pizzaria.entity.Cliente;
 import com.pizzaria.pizzaria.entity.Conta;
 import com.pizzaria.pizzaria.entity.Endereco;
@@ -45,9 +46,13 @@ class TestesCliente {
         Cliente cliente = new Cliente(1L, "Emilio", "101.101.101-10", contas, enderecos);
         Cliente cliente1 = new Cliente(2L, "Professor", "202.202.202-20", contas, enderecos);
 
+        List<Cliente> clientes =new ArrayList<>();
+        clientes.add(cliente);
+
         Mockito.when(clienteRepository.save(cliente)).thenReturn(cliente);
         Mockito.when(clienteRepository.save(cliente1)).thenReturn(cliente1);
         Mockito.when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
+        Mockito.when(clienteRepository.findAll()).thenReturn(clientes);
     }
 
     @Test
@@ -113,6 +118,13 @@ class TestesCliente {
     void erroFindIdTeste(){
         final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->clienteController.findById(null));
         Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
+    }
+
+    @Test
+    void findAllTeste(){
+        List<ClienteDTO> clienteDTOS = clienteController.findAllUsuario().getBody();
+        Assert.assertEquals(HttpStatus.OK,clienteController.findAllUsuario().getStatusCode());
+        Assert.assertEquals(1,clienteDTOS.size());
     }
 
 }

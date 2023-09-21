@@ -1,6 +1,7 @@
 package com.pizzaria.pizzaria;
 
 import com.pizzaria.pizzaria.controller.ItemController;
+import com.pizzaria.pizzaria.dto.EnderecoDTO;
 import com.pizzaria.pizzaria.dto.ItemDTO;
 import com.pizzaria.pizzaria.entity.Item;
 import com.pizzaria.pizzaria.entity.Sabor;
@@ -38,8 +39,12 @@ class TesteItem {
 
         Item item = new Item(1L,"pizza", Tamanho.G, sabor);
 
+        List<Item> items = new ArrayList<>();
+        items.add(item);
+
         Mockito.when(itemRepository.save(item)).thenReturn(item);
         Mockito.when(itemRepository.findById(1L)).thenReturn(Optional.of(item));
+        Mockito.when(itemRepository.findAll()).thenReturn(items);
     }
 
     @Test
@@ -96,5 +101,12 @@ class TesteItem {
     void erroFindIdTeste(){
         final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->itemController.findById(null));
         Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
+    }
+
+    @Test
+    void findAllTeste(){
+        List<ItemDTO> enderecos = itemController.findAllItem().getBody();
+        Assert.assertEquals(HttpStatus.OK,itemController.findAllItem().getStatusCode());
+        Assert.assertEquals(1,enderecos.size());
     }
 }

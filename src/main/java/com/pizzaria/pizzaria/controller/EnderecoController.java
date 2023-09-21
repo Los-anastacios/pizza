@@ -49,7 +49,11 @@ public class EnderecoController {
 
     @GetMapping("/lista")
     public ResponseEntity<List<EnderecoDTO>> findAllEndereco(){
-      return  ResponseEntity.ok(enderecoService.findAllEndereco());
+        try{
+            return  ResponseEntity.ok(enderecoService.findAllEndereco());
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+        }
     }
 
     @GetMapping("/id/{id}")

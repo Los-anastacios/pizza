@@ -48,7 +48,11 @@ public class FuncioanrioController {
 
     @GetMapping("/lista")
     public ResponseEntity<List<FuncionarioDTO>> findAllUsuario(){
-        return  ResponseEntity.ok(funcionarioService.findAllFuncionario());
+        try {
+            return  ResponseEntity.status(HttpStatus.OK).body(funcionarioService.findAllFuncionario());
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+        }
     }
 
     @GetMapping("/id/{id}")

@@ -1,6 +1,7 @@
 package com.pizzaria.pizzaria;
 
 import com.pizzaria.pizzaria.controller.PedidoController;
+import com.pizzaria.pizzaria.dto.EnderecoDTO;
 import com.pizzaria.pizzaria.dto.PedidoDTO;
 import com.pizzaria.pizzaria.entity.Cliente;
 import com.pizzaria.pizzaria.entity.Funcionario;
@@ -43,8 +44,12 @@ class TestePedido {
 
         Pedido pedido = new Pedido(1L,"obs",cliente,funcionario,false, Estado.ANDAMENTO,items);
 
+        List<Pedido> pedidos = new ArrayList<>();
+        pedidos.add(pedido);
+
         Mockito.when(pedidoRepository.save(pedido)).thenReturn(pedido);
         Mockito.when(pedidoRepository.findById(1L)).thenReturn(Optional.of(pedido));
+        Mockito.when(pedidoRepository.findAll()).thenReturn(pedidos);
     }
 
     @Test
@@ -111,5 +116,12 @@ class TestePedido {
     void erroFindIdTeste(){
         final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->pedidoController.findById(null));
         Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
+    }
+
+    @Test
+    void findAllTeste(){
+        List<PedidoDTO> pedidoDTOS = pedidoController.findAllPedido().getBody();
+        Assert.assertEquals(HttpStatus.OK,pedidoController.findAllPedido().getStatusCode());
+        Assert.assertEquals(1,pedidoDTOS.size());
     }
 }

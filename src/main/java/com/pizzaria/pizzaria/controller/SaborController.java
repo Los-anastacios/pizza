@@ -48,7 +48,11 @@ public class SaborController {
 
     @GetMapping("/lista")
     public ResponseEntity<List<SaborDTO>> findAllSabor(){
-        return  ResponseEntity.ok(saborService.findAllSabor());
+        try {
+            return  ResponseEntity.ok(saborService.findAllSabor());
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+        }
     }
 
     @GetMapping("/id/{id}")
