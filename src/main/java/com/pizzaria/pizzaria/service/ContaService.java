@@ -76,7 +76,7 @@ public class ContaService {
 
     public ContaDTO findById(Long id){
 
-        //Assert.isTrue(id != null, "ID INVALIDO");
+        Assert.isTrue(id != null, "ID INVALIDO");
 
         Conta contaBanco = this.contaRepository.findById(id).orElse(null);
 

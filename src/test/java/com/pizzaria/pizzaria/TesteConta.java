@@ -18,7 +18,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
-import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 @SpringBootTest
 class TesteConta {

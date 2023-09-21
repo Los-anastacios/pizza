@@ -2,13 +2,11 @@ package com.pizzaria.pizzaria;
 
 import com.pizzaria.pizzaria.controller.ClienteController;
 import com.pizzaria.pizzaria.dto.ClienteDTO;
-import com.pizzaria.pizzaria.dto.EnderecoDTO;
 import com.pizzaria.pizzaria.entity.Cliente;
 import com.pizzaria.pizzaria.entity.Conta;
 import com.pizzaria.pizzaria.entity.Endereco;
 import com.pizzaria.pizzaria.repository.ClienteRepository;
 import com.pizzaria.pizzaria.service.ClienteService;
-import com.sun.net.httpserver.HttpsServer;
 import org.junit.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

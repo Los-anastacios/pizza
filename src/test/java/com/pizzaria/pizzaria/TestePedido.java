@@ -1,7 +1,6 @@
 package com.pizzaria.pizzaria;
 
 import com.pizzaria.pizzaria.controller.PedidoController;
-import com.pizzaria.pizzaria.dto.EnderecoDTO;
 import com.pizzaria.pizzaria.dto.PedidoDTO;
 import com.pizzaria.pizzaria.entity.Cliente;
 import com.pizzaria.pizzaria.entity.Funcionario;

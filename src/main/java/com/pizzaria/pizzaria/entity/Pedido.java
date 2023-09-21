@@ -1,6 +1,5 @@
 package com.pizzaria.pizzaria.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pizzaria.pizzaria.entity.enums.Estado;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

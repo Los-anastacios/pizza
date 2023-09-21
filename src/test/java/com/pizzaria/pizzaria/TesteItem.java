@@ -1,7 +1,6 @@
 package com.pizzaria.pizzaria;
 
 import com.pizzaria.pizzaria.controller.ItemController;
-import com.pizzaria.pizzaria.dto.EnderecoDTO;
 import com.pizzaria.pizzaria.dto.ItemDTO;
 import com.pizzaria.pizzaria.entity.Item;
 import com.pizzaria.pizzaria.entity.Sabor;

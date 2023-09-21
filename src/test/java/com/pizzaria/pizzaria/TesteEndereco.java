@@ -1,7 +1,6 @@
 package com.pizzaria.pizzaria;
 
 import com.pizzaria.pizzaria.controller.EnderecoController;
-import com.pizzaria.pizzaria.dto.ContaDTO;
 import com.pizzaria.pizzaria.dto.EnderecoDTO;
 import com.pizzaria.pizzaria.entity.Cliente;
 import com.pizzaria.pizzaria.entity.Endereco;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
