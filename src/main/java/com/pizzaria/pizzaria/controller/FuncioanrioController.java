@@ -21,7 +21,7 @@ public class FuncioanrioController {
     public ResponseEntity<String> cadastrar(@RequestBody final FuncionarioDTO funcionarioDTO){
         try {
             // era string<>
-            return ResponseEntity.ok("Cliente Cadastrado com sucesso: " + funcionarioService.cadastrar(funcionarioDTO));
+            return ResponseEntity.ok("Cliente Cadastrado com sucesso: " + funcionarioService.cadastrar(funcionarioDTO).getNome());
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -32,7 +32,7 @@ public class FuncioanrioController {
         try {
             return ResponseEntity.ok(funcionarioService.editar(id, funcionarioDTO) + "Alterado com sucesso");
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 

@@ -20,9 +20,9 @@ public class ItemController {
     @PostMapping("/cadastrar")
     public ResponseEntity<String> cadastrar(@RequestBody final ItemDTO itemDTO){
         try {
-            return ResponseEntity.ok("Item, cadastrado com sucesso" + itemService.cadastrar(itemDTO));
+            return ResponseEntity.ok("cadastrado com sucesso" + itemService.cadastrar(itemDTO).getNome());
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -31,7 +31,7 @@ public class ItemController {
         try {
             return ResponseEntity.ok(itemService.editar(id, itemDTO));
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -50,7 +50,7 @@ public class ItemController {
        return ResponseEntity.ok(itemService.findAllItem());
     }
 
-    @GetMapping
+    @GetMapping("/id/{id}")
     public ResponseEntity<ItemDTO> findById(@PathVariable("id") Long id){
         try {
             return ResponseEntity.ok(this.itemService.findById(id));

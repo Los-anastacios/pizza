@@ -1,5 +1,6 @@
 package com.pizzaria.pizzaria.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,16 +12,14 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "endereco", schema = "public")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Endereco extends AbstractEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_endereco")
     private Long id;
 
-    @Column(name = "rua")
+    @Column(name = "rua", nullable = false)
     private String rua;
 
     @Column(name = "numero")
@@ -35,9 +34,23 @@ public class Endereco extends AbstractEntity{
     @Column(name = "complemento")
     private String complemento;
 
+    @JsonBackReference
     @JsonIgnoreProperties("enderecos")
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Cliente cliente;
 
+    public Endereco(){
+
+    }
+
+    public Endereco(Long id, String rua, int numero, String bairro, String cep, String complemento, Cliente cliente) {
+        this.id = id;
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cep = cep;
+        this.complemento = complemento;
+        this.cliente = cliente;
+    }
 }

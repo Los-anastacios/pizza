@@ -48,7 +48,7 @@ public class PedidoService {
 
     public PedidoDTO findById(Long id){
 
-        Pedido pedidoBanco = pedidoRepository.findById(id).orElse(null);
+        Pedido pedidoBanco = this.pedidoRepository.findById(id).orElse(null);
 
         return toPedidoDTO(pedidoBanco);
     }
@@ -71,6 +71,8 @@ public class PedidoService {
         pedidoDTO.setObs(pedido.getObs());
         pedidoDTO.setIdCliente(pedido.getIdCliente());
         pedidoDTO.setEstado(pedido.getEstado());
+        pedidoDTO.setIdItem(pedido.getIdItem());
+        pedidoDTO.setIdFuncionario(pedido.getIdFuncionario());
 
         return pedidoDTO;
     }
@@ -82,6 +84,8 @@ public class PedidoService {
         pedido.setObs(pedidoDTO.getObs());
         pedido.setIdCliente(pedidoDTO.getIdCliente());
         pedido.setEstado(pedidoDTO.getEstado());
+        pedido.setIdItem(pedidoDTO.getIdItem());
+        pedidoDTO.setIdFuncionario(pedidoDTO.getIdFuncionario());
 
         return pedido;
     }

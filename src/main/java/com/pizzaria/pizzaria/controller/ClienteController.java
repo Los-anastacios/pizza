@@ -20,8 +20,8 @@ public class ClienteController {
     @PostMapping("/cadastrar")
     public ResponseEntity<String> cadastrar(@RequestBody final ClienteDTO clienteDTO){
         try {
-            //: " + clienteService.cadastrar(clienteDTO)
-            return ResponseEntity.ok("Cliente Cadastrado com sucesso");
+
+            return ResponseEntity.ok("Cliente Cadastrado com sucesso " + clienteService.cadastrar(clienteDTO).getNome());
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -32,7 +32,7 @@ public class ClienteController {
         try {
             return ResponseEntity.ok(clienteService.editar(id, clienteDTO));
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 

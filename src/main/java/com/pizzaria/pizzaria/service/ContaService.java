@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.List;
+
 
 @Service
 public class ContaService {
@@ -32,6 +34,7 @@ public class ContaService {
         conta.setId(contaDTO.getId());
         conta.setEmail(contaDTO.getEmail());
         conta.setSenha(contaDTO.getSenha());
+        conta.setCliente(contaDTO.getCliente());
 
         return conta;
     }
@@ -42,6 +45,7 @@ public class ContaService {
         contaDTO.setId(conta.getId());
         contaDTO.setEmail(conta.getEmail());
         contaDTO.setSenha(conta.getSenha());
+        contaDTO.setCliente(conta.getCliente());
 
         return contaDTO;
     }
@@ -66,10 +70,15 @@ public class ContaService {
         return "conta deletada com sucesso";
     }
 
+    public List<ContaDTO> findAllConta(){
+        return contaRepository.findAll().stream().map(this::toContaDTO).toList();
+    }
+
     public ContaDTO findById(Long id){
 
-        Assert.isTrue(id != null, "ID INVALIDO");
-        Conta contaBanco = this.contaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado!"));
+        //Assert.isTrue(id != null, "ID INVALIDO");
+
+        Conta contaBanco = this.contaRepository.findById(id).orElse(null);
 
         return  toContaDTO(contaBanco);
     }

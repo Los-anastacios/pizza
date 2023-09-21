@@ -7,7 +7,9 @@ import com.pizzaria.pizzaria.entity.Conta;
 import com.pizzaria.pizzaria.entity.Endereco;
 import com.pizzaria.pizzaria.repository.ClienteRepository;
 import com.pizzaria.pizzaria.service.ClienteService;
+import com.sun.net.httpserver.HttpsServer;
 import org.junit.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -15,6 +17,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +58,16 @@ class TestesCliente {
         Conta contas = new Conta(1L,"cadastrarAdmin", "cadastrarAdmin",clienteConta);
         ClienteDTO cliente = new ClienteDTO(1L,"ClienteCadastrar", "cpfCadastrar",enderecos,contas);
 
-        var data = clienteService.cadastrar(cliente);
+        var data = clienteController.cadastrar(cliente);
 
-        Assert.assertEquals("ClienteCadastrar", data.getNome());
+        Assert.assertEquals("Cliente Cadastrado com sucesso ClienteCadastrar", data.getBody());
 
+    }
+
+    @Test
+    void errorCadastrarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()-> clienteController.cadastrar(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
     }
 
     @Test
@@ -70,10 +80,22 @@ class TestesCliente {
     }
 
     @Test
+    void errorEditarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class, ()-> clienteController.editar(null,null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
+    }
+
+    @Test
     void deletarTeste(){
 
-        String data = clienteService.deletar(1L);
-        Assert.assertEquals("Cliente Deletado!", data);
+        var data = clienteController.deleta(1L);
+        Assert.assertEquals("Deletado com sucesso", data.getBody());
+    }
+
+    @Test
+    void errorDeletarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->clienteController.deleta(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
     }
 
     @Test
@@ -85,6 +107,12 @@ class TestesCliente {
         var cliente = clienteController.findById(1L);
         Assert.assertEquals(cliente.getBody().getNome(), clienteController.findById(1L).getBody().getNome());
 
+    }
+
+    @Test
+    void erroFindIdTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->clienteController.findById(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
     }
 
 }

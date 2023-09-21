@@ -21,10 +21,10 @@ public class EnderecoController {
     @PostMapping("/cadastrar")
     public ResponseEntity<String> cadastrar(@RequestBody @Validated EnderecoDTO enderecoDTO){
         try {
-            return  ResponseEntity.ok("Endereço cadastrado com sucesso" + enderecoService.cadastrar(enderecoDTO));
+            return  ResponseEntity.ok("Endereço cadastrado com sucesso" + enderecoService.cadastrar(enderecoDTO).getRua());
 
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -33,7 +33,7 @@ public class EnderecoController {
         try{
             return ResponseEntity.ok(enderecoService.editar(id, enderecoDTO) + "Alterado com sucesso");
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 

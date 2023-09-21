@@ -19,9 +19,9 @@ public class ContaController {
     @PostMapping("/cadastrar")
     public ResponseEntity<String> cadastrar(@RequestBody final ContaDTO contaDTO){
         try {
-            return ResponseEntity.ok("Conta, cadastrado com sucesso" + contaService.cadastrar(contaDTO));
+            return ResponseEntity.ok("Conta, cadastrado com sucesso" + contaService.cadastrar(contaDTO).getEmail());
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -31,7 +31,7 @@ public class ContaController {
 
             return ResponseEntity.ok(contaService.editar(id, contaDTO)+ "Alterado com sucesso");
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 

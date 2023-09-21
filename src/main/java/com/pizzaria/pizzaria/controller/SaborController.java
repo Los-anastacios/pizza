@@ -20,9 +20,9 @@ public class SaborController {
     @PostMapping("/cadastrar")
     public ResponseEntity<String> cadastrar(@RequestBody final SaborDTO saborDTO){
         try {
-            return ResponseEntity.ok("Sabor, cadastrado com sucesso" + saborService.cadastrar(saborDTO));
+            return ResponseEntity.ok("Sabor, cadastrado com sucesso" + saborService.cadastrar(saborDTO).getNome());
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -32,7 +32,7 @@ public class SaborController {
             saborService.editar(id,saborDTO);
             return ResponseEntity.ok(saborService.editar(id,saborDTO) + "Alterado com sucesso");
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 

@@ -1,6 +1,8 @@
 package com.pizzaria.pizzaria.service;
 
+import com.pizzaria.pizzaria.dto.ClienteDTO;
 import com.pizzaria.pizzaria.dto.EnderecoDTO;
+import com.pizzaria.pizzaria.entity.Cliente;
 import com.pizzaria.pizzaria.entity.Endereco;
 import com.pizzaria.pizzaria.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +83,7 @@ public class EnderecoService {
         enderecoDTO.setBairro(endereco.getBairro());
         enderecoDTO.setComplemento(endereco.getComplemento());
         enderecoDTO.setNumero(endereco.getNumero());
+        enderecoDTO.setCliente(endereco.getCliente());
 
         return enderecoDTO;
     }
@@ -94,7 +97,10 @@ public class EnderecoService {
         endereco.setBairro(enderecoDTO.getBairro());
         endereco.setComplemento(enderecoDTO.getComplemento());
         endereco.setNumero(enderecoDTO.getNumero());
+        endereco.setCliente(enderecoDTO.getCliente());
 
         return endereco;
     }
+
+
 }

@@ -1,23 +1,28 @@
 package com.pizzaria.pizzaria;
 
 import com.pizzaria.pizzaria.controller.FuncioanrioController;
+import com.pizzaria.pizzaria.dto.ContaDTO;
 import com.pizzaria.pizzaria.dto.FuncionarioDTO;
 import com.pizzaria.pizzaria.entity.ContaFuncionario;
 import com.pizzaria.pizzaria.entity.Funcionario;
 import com.pizzaria.pizzaria.repository.FuncionarioRepository;
 import com.pizzaria.pizzaria.service.FuncionarioService;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
 @SpringBootTest
-public class TesteFuncionario {
+class TesteFuncionario {
 
     @MockBean
     FuncionarioRepository funcionarioRepository;
@@ -42,10 +47,16 @@ public class TesteFuncionario {
         ContaFuncionario contaFuncionario = new ContaFuncionario(1L, "admin","admin");
         FuncionarioDTO funcionarioDTO = new FuncionarioDTO(1L,"cadastrarAdmin","cadastrarAdmin",contaFuncionario);
 
-        var data = funcionarioService.cadastrar(funcionarioDTO);
+        var data = funcioanrioController.cadastrar(funcionarioDTO);
 
-        Assert.assertEquals("cadastrarAdmin", data.getNome());
+        Assert.assertEquals("Cliente Cadastrado com sucesso: cadastrarAdmin", data.getBody());
 
+    }
+
+    @Test
+    void errorCadastrarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()-> funcioanrioController.cadastrar(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
     }
 
     @Test
@@ -57,10 +68,22 @@ public class TesteFuncionario {
     }
 
     @Test
+    void errorEditarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class, ()-> funcioanrioController.editar(null,null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
+    }
+
+    @Test
     void deletarTeste(){
 
-        String data = funcionarioService.deletar(1L);
-        Assert.assertEquals("usuario deletado com sucesso", data);
+        var data = funcioanrioController.deleta(1L);
+        Assert.assertEquals("Deletado com sucesso", data.getBody());
+    }
+
+    @Test
+    void errorDeletarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->funcioanrioController.deleta(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
     }
 
     @Test
@@ -70,5 +93,11 @@ public class TesteFuncionario {
 
         var funcionario = funcioanrioController.findById(1L);
         Assert.assertEquals(funcionario.getBody().getNome(), funcioanrioController.findById(1L).getBody().getNome());
+    }
+
+    @Test
+    void erroFindIdTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->funcioanrioController.findById(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
     }
 }

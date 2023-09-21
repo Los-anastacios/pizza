@@ -19,9 +19,9 @@ public class PedidoController {
     @PostMapping("/cadastrar")
     public ResponseEntity<String> cadastrar(@RequestBody final PedidoDTO pedidoDTO){
         try {
-            return ResponseEntity.ok("Pedido Cadastraco com sucesso" + pedidoService.cadastrar(pedidoDTO));
+            return ResponseEntity.ok("Cadastraco com sucesso " + pedidoService.cadastrar(pedidoDTO).getObs());
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -30,7 +30,7 @@ public class PedidoController {
         try {
             return ResponseEntity.ok(pedidoService.editar(id, pedidoDTO) + "Alterado com sucesso");
         }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -46,7 +46,12 @@ public class PedidoController {
 
     @GetMapping("/lista")
     public ResponseEntity<List<PedidoDTO>> findAllPedido(){
-       return  ResponseEntity.ok(pedidoService.findAllPedido());
+
+       try {
+           return  ResponseEntity.ok(pedidoService.findAllPedido());
+       }catch (Exception e){
+           throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+       }
     }
 
     @GetMapping("/id/{id}")

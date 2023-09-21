@@ -1,6 +1,7 @@
 package com.pizzaria.pizzaria.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -16,8 +17,6 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "cliente", schema = "public")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Cliente extends AbstractEntity{
 
     @Id
@@ -31,12 +30,23 @@ public class Cliente extends AbstractEntity{
     @Column(name = "cpf")
     private String cpf;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "cliente")
     private Conta conta;
 
+    @JsonManagedReference
     @JsonIgnoreProperties("cliente")
-    @JsonManagedReference("cliente")
     @OneToMany(mappedBy = "cliente", cascade =  CascadeType.ALL)
     private List<Endereco> enderecos;
 
+    public Cliente() {
+    }
+
+    public Cliente(Long id, String nome, String cpf, Conta conta, List<Endereco> enderecos) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.conta = conta;
+        this.enderecos =enderecos;
+    }
 }

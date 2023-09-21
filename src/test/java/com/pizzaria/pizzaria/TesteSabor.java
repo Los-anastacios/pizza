@@ -6,24 +6,25 @@ import com.pizzaria.pizzaria.entity.Sabor;
 import com.pizzaria.pizzaria.repository.SaborRepository;
 import com.pizzaria.pizzaria.service.SaborService;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
 @SpringBootTest
-public class TesteSabor {
+class TesteSabor {
 
     @MockBean
     SaborRepository saborRepository;
     @Autowired
     SaborController saborController;
-    @Autowired
-    SaborService saborService;
 
     @BeforeEach
     void injectData(){
@@ -37,9 +38,17 @@ public class TesteSabor {
     void cadastrarTeste(){
 
         SaborDTO sabor = new SaborDTO(1L,"sabor");
-        var data = saborService.cadastrar(sabor);
+        var data = saborController.cadastrar(sabor);
 
-        Assert.assertEquals("sabor", data.getNome());
+        Assert.assertEquals("Sabor, cadastrado com sucessosabor", data.getBody());
+        System.out.println(data.getBody());
+        System.out.println(sabor.getNome());
+    }
+
+    @Test
+    void errorCadastrarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()-> saborController.cadastrar(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
     }
 
     @Test
@@ -49,10 +58,23 @@ public class TesteSabor {
     }
 
     @Test
-    void deletarTeste(){
-        String data = saborService.deletar(1L);
-        Assert.assertEquals("sabor deletado com sucesso", data);
+    void errorEditarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class, ()-> saborController.editar(null,null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
+    }
 
+
+    @Test
+    void deletarTeste(){
+        var data = saborController.deleta(1L);
+        Assert.assertEquals("Deletado com sucesso", data.getBody());
+
+    }
+
+    @Test
+    void errorDeletarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->saborController.deleta(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
     }
 
     @Test
@@ -60,5 +82,11 @@ public class TesteSabor {
         saborController.cadastrar(new SaborDTO(1L,"Idsabor"));
         var sabor = saborController.findById(1L);
         Assert.assertEquals(sabor.getBody().getNome(), saborController.findById(1L).getBody().getNome());
+    }
+
+    @Test
+    void erroFindIdTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->saborController.findById(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
     }
 }

@@ -23,7 +23,6 @@ public class PedidoDTO {
 
     private Funcionario idFuncionario;
 
-
     private Estado estado;
 
     private List<Item> idItem;

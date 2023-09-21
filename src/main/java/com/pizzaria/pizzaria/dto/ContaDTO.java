@@ -1,5 +1,6 @@
 package com.pizzaria.pizzaria.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pizzaria.pizzaria.entity.Cliente;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ public class ContaDTO {
 
     private String senha;
 
+    //@JsonIgnore
     private Cliente cliente;
 
     public ContaDTO(){

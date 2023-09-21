@@ -1,23 +1,28 @@
 package com.pizzaria.pizzaria;
 
 import com.pizzaria.pizzaria.controller.EnderecoController;
+import com.pizzaria.pizzaria.dto.ContaDTO;
 import com.pizzaria.pizzaria.dto.EnderecoDTO;
 import com.pizzaria.pizzaria.entity.Cliente;
 import com.pizzaria.pizzaria.entity.Endereco;
 import com.pizzaria.pizzaria.repository.EnderecoRepository;
 import com.pizzaria.pizzaria.service.EnderecoService;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
 @SpringBootTest
-public class TesteEndereco {
+class TesteEndereco {
 
     @MockBean
     EnderecoRepository enderecoRepository;
@@ -41,8 +46,14 @@ public class TesteEndereco {
         Cliente clientes = new Cliente();
         EnderecoDTO enderecoDTO = new EnderecoDTO(1L,"rua",10,"bairro","cep","complemento", clientes);
 
-        var data = enderecoService.cadastrar(enderecoDTO);
-        Assert.assertEquals("rua", data.getRua());
+        var data = enderecoController.cadastrar(enderecoDTO);
+        Assert.assertEquals("Endereço cadastrado com sucessorua", data.getBody());
+    }
+
+    @Test
+    void errorCadastrarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()-> enderecoController.cadastrar(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
     }
 
     @Test
@@ -55,11 +66,24 @@ public class TesteEndereco {
     }
 
     @Test
+    void errorEditarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class, ()-> enderecoController.editar(null,null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
+    }
+
+    @Test
     void deletarTeste(){
 
-        String data = enderecoService.deletar(1L);
-        Assert.assertEquals("Endereco deletado com sucesso",  data);
+        var data = enderecoController.deleta(1L);
+        Assert.assertEquals("Deletado com sucesso",  data.getBody());
     }
+
+    @Test
+    void errorDeletarTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->enderecoController.deleta(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
+    }
+
     @Test
     void findIdTeste(){
 
@@ -67,6 +91,12 @@ public class TesteEndereco {
         enderecoController.cadastrar(new EnderecoDTO(1L,"rua",10,"bairro","cep","complemento",clientes));
         var endereco = enderecoController.findById(1L);
         Assert.assertEquals(endereco.getBody().getRua(),enderecoController.findById(1L).getBody().getRua());
+    }
+
+    @Test
+    void erroFindIdTeste(){
+        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->enderecoController.findById(null));
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
     }
 
 }

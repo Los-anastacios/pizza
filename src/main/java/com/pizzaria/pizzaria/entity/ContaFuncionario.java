@@ -1,9 +1,9 @@
 package com.pizzaria.pizzaria.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -24,6 +24,7 @@ public class ContaFuncionario {
     @Column(name = "senha")
     private String senha;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "funcionario_fk", referencedColumnName = "id")
     private Funcionario funcionario;

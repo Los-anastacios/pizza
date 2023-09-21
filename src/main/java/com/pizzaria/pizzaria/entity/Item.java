@@ -31,4 +31,6 @@ public class Item extends AbstractEntity{
     @ManyToMany
     @JoinTable(name = "itemSabor", joinColumns = @JoinColumn(name = "idSabor"), inverseJoinColumns = @JoinColumn(name = "idItem"))
     private List<Sabor> sabor = new ArrayList<>();
+
+
 }

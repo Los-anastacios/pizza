@@ -4,6 +4,7 @@ package com.pizzaria.pizzaria.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 
 
 @Getter
@@ -13,6 +14,8 @@ public class SaborDTO {
     private Long id;
 
     private String nome;
+
+    private List<ItemDTO> itemDTOS;
 
     public SaborDTO(){
 

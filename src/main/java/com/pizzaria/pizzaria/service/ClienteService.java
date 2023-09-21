@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,14 +52,21 @@ public class ClienteService {
 
     public List<ClienteDTO> findAllUsuario(){
 
-        return clienteRepository.findAll().stream().map(this::toUsuarioDTO).toList();
+        List<Cliente> clienteBanco = clienteRepository.findAll();
+        List<ClienteDTO> clienteDTOBanco = new ArrayList<>();
+
+        for (int i =0; i < clienteBanco.size(); i++){
+            clienteDTOBanco.add(toUsuarioDTO(clienteBanco.get(i)));
+        }
+
+        return clienteDTOBanco;
     }
 
     public ClienteDTO findById(Long id){
 
-        Assert.isTrue(id != null, "ID INVALIDO");
+       Assert.isTrue(id != null, "ID INVALIDO");
 
-        Cliente clienteBanco = this.clienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado!"));
+        Cliente clienteBanco = this.clienteRepository.findById(id).orElse(null);
 
         return toUsuarioDTO(clienteBanco);
     }
