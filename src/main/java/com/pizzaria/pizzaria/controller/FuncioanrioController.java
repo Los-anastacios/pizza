@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/funcionario")
+@RequestMapping("/api/funcionario")
 public class FuncioanrioController {
 
     @Autowired

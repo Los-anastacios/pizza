@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/item")
+@RequestMapping("/api/item")
 public class ItemController {
 
     @Autowired

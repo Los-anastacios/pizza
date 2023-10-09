@@ -20,10 +20,10 @@ public class SaborService {
     public SaborDTO cadastrar(SaborDTO saborDTO){
 
         Assert.isTrue(saborDTO.getNome() != null, "Informe o nome");
-
         Sabor sabor = toSabor(saborDTO);
-        this.saborRepository.save(sabor);
 
+        Assert.isTrue(sabor.getNome() != null, "Informe o nome");
+        this.saborRepository.save(sabor);
         return toSaborDTO(sabor);
     }
 

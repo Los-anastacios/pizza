@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
-@RequestMapping("/conta")
+@RequestMapping("/api/conta")
 public class ContaController {
 
     @Autowired

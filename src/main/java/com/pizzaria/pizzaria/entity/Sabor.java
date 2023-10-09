@@ -20,7 +20,7 @@ public class Sabor extends AbstractEntity{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", nullable = false)
     private String nome;
 
 }

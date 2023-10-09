@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/sabor")
+@RequestMapping("/api/sabor")
 public class SaborController {
 
     @Autowired
@@ -26,7 +26,7 @@ public class SaborController {
         }
     }
 
-    @PostMapping("/editar/{id}")
+    @PutMapping("/editar/{id}")
     public ResponseEntity<String> editar(@PathVariable("id") Long id, @RequestBody SaborDTO saborDTO){
         try {
             saborService.editar(id,saborDTO);
