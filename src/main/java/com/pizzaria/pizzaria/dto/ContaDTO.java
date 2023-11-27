@@ -9,12 +9,10 @@ import lombok.Setter;
 public class ContaDTO {
 
     private Long id;
-    private String email;
+    private String username;
 
-    private String senha;
+    private String password;
 
-    //@JsonIgnore
-    private Cliente cliente;
 
     public ContaDTO(){
 
@@ -22,7 +20,7 @@ public class ContaDTO {
 
     public ContaDTO(Long id, String email, String senha) {
         this.id = id;
-        this.email = email;
-        this.senha = senha;
+        this.username = email;
+        this.password = senha;
     }
 }

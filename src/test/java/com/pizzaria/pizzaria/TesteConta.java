@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
+import static com.pizzaria.pizzaria.entity.enums.Roles.ADMIN;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -32,7 +33,7 @@ class TesteConta {
     @BeforeEach
     void injectData(){
 
-        Conta contas = new Conta(1L,"admin", "admin");
+        Conta contas = new Conta("admin", "admin");
 
         when(contaRepository.save(contas)).thenReturn(contas);
         when(contaRepository.findById(1L)).thenReturn(Optional.of(contas));
@@ -67,24 +68,11 @@ class TesteConta {
     }
 
     @Test
-    void deletarTeste(){
-
-        var data = contaController.deleta(1L);
-        Assert.assertEquals("Deletado com sucesso", data.getBody());
-    }
-
-    @Test
-    void errorDeletarTeste(){
-        final ResponseStatusException e = Assertions.assertThrows(ResponseStatusException.class,()->contaController.deleta(null));
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST,e.getStatusCode());
-    }
-
-    @Test
     void findIdTeste(){
 
         contaController.cadastrar(new ContaDTO(1L,"IdAdmin", "IdAdmin"));
         var conta = contaController.findById(1L);
-        Assert.assertEquals(conta.getBody().getEmail(), contaController.findById(1L).getBody().getEmail());
+        Assert.assertEquals(conta.getBody().getUsername(), contaController.findById(1L).getBody().getUsername());
     }
 
     @Test

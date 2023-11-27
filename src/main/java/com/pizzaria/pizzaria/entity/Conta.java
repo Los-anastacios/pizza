@@ -1,11 +1,18 @@
 package com.pizzaria.pizzaria.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pizzaria.pizzaria.entity.enums.Roles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,27 +20,54 @@ import lombok.Setter;
 @Table(name = "Conta", schema = "public")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Conta extends AbstractEntity {
+public class Conta implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_conta", nullable = false)
     private Long id;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "username_email", nullable = false)
+    private String username;
 
-    @Column(name = "senha", nullable = false)
-    private String senha;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "cliente_fk", referencedColumnName = "id")
-    private Cliente cliente;
+    @Column(name = "role")
+    private Roles role;
 
 
-    public Conta(Long id, String email, String senha) {
-        this.id = id;
-        this.email = email;
-        this.senha = senha;
+    public Conta( String email, String senha) {
+        this.username = email;
+        this.password = senha;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == Roles.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getPassword(){
+        return this.getPassword();
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

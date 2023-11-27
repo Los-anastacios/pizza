@@ -1,6 +1,7 @@
 package com.pizzaria.pizzaria.controller;
 
 import com.pizzaria.pizzaria.dto.SaborDTO;
+import com.pizzaria.pizzaria.entity.Sabor;
 import com.pizzaria.pizzaria.service.SaborService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/sabor")
+@CrossOrigin(origins = "*")
 public class SaborController {
 
     @Autowired
@@ -47,7 +49,7 @@ public class SaborController {
     }
 
     @GetMapping("/lista")
-    public ResponseEntity<List<SaborDTO>> findAllSabor(){
+    public ResponseEntity<List<Sabor>> findAllSabor(){
         try {
             return  ResponseEntity.ok(saborService.findAllSabor());
         }catch (Exception e){

@@ -56,9 +56,10 @@ public class SaborService {
         return toSaborDTO(saborBanco);
     }
 
-    public List<SaborDTO> findAllSabor(){
+    public List<Sabor> findAllSabor(){
 
-        return saborRepository.findAll().stream().map(this::toSaborDTO).toList();
+        //return saborRepository.findAll().stream().map(this::toSaborDTO).toList();
+        return saborRepository.findAll();
     }
 
     public SaborDTO toSaborDTO(Sabor sabor){

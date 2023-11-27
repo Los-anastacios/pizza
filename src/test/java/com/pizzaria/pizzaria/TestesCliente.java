@@ -5,6 +5,7 @@ import com.pizzaria.pizzaria.dto.ClienteDTO;
 import com.pizzaria.pizzaria.entity.Cliente;
 import com.pizzaria.pizzaria.entity.Conta;
 import com.pizzaria.pizzaria.entity.Endereco;
+import com.pizzaria.pizzaria.entity.enums.Roles;
 import com.pizzaria.pizzaria.repository.ClienteRepository;
 import com.pizzaria.pizzaria.service.ClienteService;
 import org.junit.*;
@@ -39,7 +40,7 @@ class TestesCliente {
         List<Endereco> enderecos = new ArrayList<>();
 
         Cliente clienteConta = new Cliente();
-        Conta contas = new Conta(1L,"admin", "admin", clienteConta);
+        Conta contas = new Conta(1L,"admin", "admin", Roles.ADMIN);
 
         Cliente cliente = new Cliente(1L, "Emilio", "101.101.101-10", contas, enderecos);
         Cliente cliente1 = new Cliente(2L, "Professor", "202.202.202-20", contas, enderecos);
@@ -58,7 +59,7 @@ class TestesCliente {
         List<Endereco> enderecos = new ArrayList<>();
         Cliente clienteConta = new Cliente();
 
-        Conta contas = new Conta(1L,"cadastrarAdmin", "cadastrarAdmin",clienteConta);
+        Conta contas = new Conta(1L,"cadastrarAdmin", "cadastrarAdmin",Roles.ADMIN);
         ClienteDTO cliente = new ClienteDTO(1L,"ClienteCadastrar", "cpfCadastrar",enderecos,contas);
 
         var data = clienteController.cadastrar(cliente);
@@ -77,7 +78,7 @@ class TestesCliente {
     void editarTeste(){
         List<Endereco> enderecos = new ArrayList<>();
         Cliente clienteConta = new Cliente();
-        Conta contas = new Conta(1L,"editarAdmin", "editarAdmin", clienteConta);
+        Conta contas = new Conta(1L,"editarAdmin", "editarAdmin", Roles.ADMIN);
         var cliente = clienteController.editar(1L, new ClienteDTO(1L, "ClienteEditar", "cpfEditar", enderecos, contas));
         Assert.assertEquals("ClienteEditar Cliente Editado!", cliente.getBody());
     }
@@ -105,7 +106,7 @@ class TestesCliente {
     void findIdTeste(){
         List<Endereco> enderecos = new ArrayList<>();
         Cliente clienteConta = new Cliente();
-        Conta contas = new Conta(1L,"IdAdmin", "IdAdmin", clienteConta);
+        Conta contas = new Conta(1L,"IdAdmin", "IdAdmin", Roles.ADMIN);
         clienteController.cadastrar(new ClienteDTO(1L,"findIdNome", "findIdCpf", enderecos, contas));
         var cliente = clienteController.findById(1L);
         Assert.assertEquals(cliente.getBody().getNome(), clienteController.findById(1L).getBody().getNome());

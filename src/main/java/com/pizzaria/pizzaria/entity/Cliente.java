@@ -28,8 +28,9 @@ public class Cliente extends AbstractEntity{
     @Column(name = "cpf")
     private String cpf;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "cliente")
+
+    @OneToOne
+    @JoinColumn(name = "usuario")
     private Conta conta;
 
     @JsonManagedReference
